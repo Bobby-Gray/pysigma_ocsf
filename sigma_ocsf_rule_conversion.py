@@ -51,7 +51,7 @@ class SigmaOcsfRuleConversion:
                     if len(sub_dirs) > 0:
                         sub_cat.update({sub : sub_dirs})
                     else:
-                        sub_cat.update({sub : {url}})
+                        sub_cat.update({sub : url})
             pprint(self.rules_dirs)
 
             
