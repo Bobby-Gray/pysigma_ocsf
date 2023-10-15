@@ -18,7 +18,7 @@ class SigmaOcsfRuleConversion:
             else:
                 pass
         if len(self.rules_dirs) > 0:
-            pprint(self.rules_dirs)
+            pprint(f'Subdirectories found for given repo, attempting to recursively collect rule files.')
         else:
             print(f'No subdirectories found in given repo.')
 
@@ -52,7 +52,6 @@ class SigmaOcsfRuleConversion:
                             sub_cat.update({sub : sub_dirs})
                         else:
                             sub_cat.update({sub : url})
-        pprint(f'self.rules_dirs: {self.rules_dirs}')
         return self.rules_dirs
 
     def get_sigma_rules(self):
@@ -113,7 +112,6 @@ class SigmaOcsfRuleConversion:
                             if isinstance(rule_url2, dict):
                                 print(f'More!\n\n')
                                 break 
-        pprint(f'self.rules: {self.rules}')
         return self.rules
 
 sigma_ocsf_rule_conversion = SigmaOcsfRuleConversion()
@@ -123,4 +121,4 @@ sigma_categories = sigma_ocsf_rule_conversion.get_sigma_categories()
 sigma_rules = sigma_ocsf_rule_conversion.get_sigma_rules()
 
 if __name__=="__main__":
-    pprint(f'Done!')
+    pprint(sigma_rules, indent=4)
