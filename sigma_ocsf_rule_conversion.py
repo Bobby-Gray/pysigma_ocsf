@@ -22,7 +22,7 @@ class SigmaOcsfRuleConversion:
         else:
             print(f'No subdirectories found in given repo.')
 
-    def get_sigma_rules(self):
+    def get_sigma_categories(self):
         if len(self.rules_dirs) > 0:
             for cat, dir in self.rules_dirs.items():
                 cat_response = requests.get(dir)
@@ -37,28 +37,90 @@ class SigmaOcsfRuleConversion:
                     self.rules_dirs.update({cat : dirs})
                 else:
                     self.rules_dirs.update({cat : {cat : dir}})
-            pprint(self.rules_dirs)
             for rule_cat, sub_cat in self.rules_dirs.items():
-                for sub, url in sub_cat.items():
-                    sub_response = requests.get(url)
-                    sub_json = json.loads(sub_response.content)
-                    sub_tree = sub_json['payload']['tree']['items']
-                    sub_dirs = {}
-                    for sub_dir in sub_tree:
-                        sub_type = sub_dir['contentType']
-                        if sub_type == 'directory':
-                            sub_dirs.update({str(sub_dir['name']) : self.repo_url + '/' + rule_cat + '/' + sub + '/' + str(sub_dir['name'])})
-                    if len(sub_dirs) > 0:
-                        sub_cat.update({sub : sub_dirs})
-                    else:
-                        sub_cat.update({sub : url})
-            pprint(self.rules_dirs)
+                if isinstance(sub_cat, dict):
+                    for sub, url in sub_cat.items():
+                        sub_response = requests.get(url)
+                        sub_json = json.loads(sub_response.content)
+                        sub_tree = sub_json['payload']['tree']['items']
+                        sub_dirs = {}
+                        for sub_dir in sub_tree:
+                            sub_type = sub_dir['contentType']
+                            if sub_type == 'directory':
+                                sub_dirs.update({str(sub_dir['name']) : self.repo_url + '/' + rule_cat + '/' + sub + '/' + str(sub_dir['name'])})
+                        if len(sub_dirs) > 0:
+                            sub_cat.update({sub : sub_dirs})
+                        else:
+                            sub_cat.update({sub : url})
+        pprint(f'self.rules_dirs: {self.rules_dirs}')
+        return self.rules_dirs
 
-            
+    def get_sigma_rules(self):
+        self.rules = self.rules_dirs
+        for cat0, rule_url0 in self.rules.items():
+            if isinstance(rule_url0, str):
+                url0_response = requests.get(rule_url0)
+                url0_json = json.loads(url0_response.text)
+                url0_tree = url0_json['payload']['tree']['items']
+                url0_rule_urls = {}
+                for url0_url in url0_tree:
+                    url0_type = url0_url['contentType']
+                    url0_name = str(url0_url['name'])
+                    url0_path = url0_url['path']
+                    if url0_type == 'file' and url0_name.endswith('.yml'):
+                        url0 = self.repo_url.replace("rules", url0_path)
+                        url0_rule_urls.update({url0_name : url0})
+                if len(url0_rule_urls) > 0:
+                    self.rules.update({cat0 : url0_rule_urls})
+                else:
+                    pass
+            if isinstance(rule_url0, dict):
+                for cat1, rule_url1 in rule_url0.items():
+                    if isinstance(rule_url1, str):
+                        url1_response = requests.get(rule_url1)
+                        url1_json = json.loads(url1_response.text)
+                        url1_tree = url1_json['payload']['tree']['items']
+                        url1_rule_urls = {}
+                        for url1_url in url1_tree:
+                            url1_type = url1_url['contentType']
+                            url1_name = str(url1_url['name'])
+                            url1_path = url1_url['path']
+                            if url1_type == 'file' and url1_name.endswith('.yml'):
+                                url1 = self.repo_url.replace("rules", url1_path)                           
+                                url1_rule_urls.update({url1_name : url1})
+                        if len(url1_rule_urls) > 0:
+                            rule_url0.update({cat1 : url1_rule_urls})
+                        else:
+                            pass
+                    if isinstance(rule_url1, dict):
+                        for cat2, rule_url2 in rule_url1.items():
+                            if isinstance(rule_url2, str):
+                                url2_response = requests.get(rule_url2)
+                                url2_json = json.loads(url2_response.text)
+                                url2_tree = url2_json['payload']['tree']['items']
+                                url2_rule_urls = {}
+                                for url2_url in url2_tree:
+                                    url2_type = url2_url['contentType']
+                                    url2_name = str(url2_url['name'])
+                                    url2_path = url2_url['path']
+                                    if url2_type == 'file' and url2_name.endswith('.yml'):
+                                        url2 = self.repo_url.replace("rules", url2_path)   
+                                        url2_rule_urls.update({url2_name : url2})
+                                if len(url2_rule_urls) > 0:
+                                    rule_url1.update({cat2 : url2_rule_urls})
+                                else:
+                                    pass
+                            if isinstance(rule_url2, dict):
+                                print(f'More!\n\n')
+                                break 
+        pprint(f'self.rules: {self.rules}')
+        return self.rules
 
-sigma_rules_dirs = SigmaOcsfRuleConversion()
+sigma_ocsf_rule_conversion = SigmaOcsfRuleConversion()
 
-sigma_rules = sigma_rules_dirs.get_sigma_rules()
+sigma_categories = sigma_ocsf_rule_conversion.get_sigma_categories()
+
+sigma_rules = sigma_ocsf_rule_conversion.get_sigma_rules()
 
 if __name__=="__main__":
-    pprint(f'ran: {sigma_rules}')
+    pprint(f'Done!')
