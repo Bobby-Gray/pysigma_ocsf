@@ -1,1 +1,275 @@
-{"DeleteIdentity": [["attack.defense_evasion", "attack.t1070"]], "DisableEbsEncryptionByDefault": [["attack.impact", "attack.t1486", "attack.t1565"]], "CreateInstanceExportTask": [["attack.collection", "attack.t1005", "attack.exfiltration", "attack.t1537"]], "DeleteFileSystem": [["attack.impact"]], "DeleteMountTarget": [["attack.impact", "attack.t1485"]], "CreateCacheSecurityGroup": [["attack.persistence", "attack.t1136", "attack.t1136.003"]], "ListBuckets": [["attack.discovery", "attack.t1580"]], "PutUserPolicy": [["attack.execution", "attack.t1059.009", "attack.persistence", "attack.t1078.004"]], "DisableDomainTransferLock": [["attack.persistence", "attack.credential_access", "attack.t1098"]], "TransferDomainToAnotherAwsAccount": [["attack.persistence", "attack.credential_access", "attack.t1098"]], "GetSessionToken": [["attack.lateral_movement", "attack.privilege_escalation", "attack.t1548", "attack.t1550", "attack.t1550.001"]]}
+{
+    "DeleteIdentity": [
+        [
+            "attack.defense_evasion",
+            "attack.t1070"
+        ]
+    ],
+    "DisableEbsEncryptionByDefault": [
+        [
+            "attack.impact",
+            "attack.t1486",
+            "attack.t1565"
+        ]
+    ],
+    "CreateInstanceExportTask": [
+        [
+            "attack.collection",
+            "attack.t1005",
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "DescribeTaskDefinition": [
+        [
+            "attack.persistence",
+            "attack.t1525"
+        ]
+    ],
+    "RegisterTaskDefinition": [
+        [
+            "attack.persistence",
+            "attack.t1525"
+        ]
+    ],
+    "RunTask": [
+        [
+            "attack.persistence",
+            "attack.t1525"
+        ]
+    ],
+    "DeleteFileSystem": [
+        [
+            "attack.impact"
+        ]
+    ],
+    "DeleteMountTarget": [
+        [
+            "attack.impact",
+            "attack.t1485"
+        ]
+    ],
+    "CreateCluster": [
+        [
+            "attack.impact",
+            "attack.t1485"
+        ]
+    ],
+    "DeleteCluster": [
+        [
+            "attack.impact",
+            "attack.t1485"
+        ]
+    ],
+    "CreateCacheSecurityGroup": [
+        [
+            "attack.persistence",
+            "attack.t1136",
+            "attack.t1136.003"
+        ]
+    ],
+    "DeleteCacheSecurityGroup": [
+        [
+            "attack.impact",
+            "attack.t1531"
+        ]
+    ],
+    "AuthorizeCacheSecurityGroupIngress": [
+        [
+            "attack.impact",
+            "attack.t1531"
+        ]
+    ],
+    "RevokeCacheSecurityGroupIngress": [
+        [
+            "attack.impact",
+            "attack.t1531"
+        ]
+    ],
+    "AuthorizeCacheSecurityGroupEgress": [
+        [
+            "attack.impact",
+            "attack.t1531"
+        ]
+    ],
+    "RevokeCacheSecurityGroupEgress": [
+        [
+            "attack.impact",
+            "attack.t1531"
+        ]
+    ],
+    "ListBuckets": [
+        [
+            "attack.discovery",
+            "attack.t1580"
+        ]
+    ],
+    "GetLoginProfile": [
+        [
+            "attack.execution",
+            "attack.persistence",
+            "attack.t1059.009",
+            "attack.t1078.004"
+        ]
+    ],
+    "CreateLoginProfile": [
+        [
+            "attack.execution",
+            "attack.persistence",
+            "attack.t1059.009",
+            "attack.t1078.004"
+        ]
+    ],
+    "PutUserPolicy": [
+        [
+            "attack.execution",
+            "attack.t1059.009",
+            "attack.persistence",
+            "attack.t1078.004"
+        ]
+    ],
+    "CreateUser": [
+        [
+            "attack.execution",
+            "attack.persistence",
+            "attack.t1059.009",
+            "attack.t1078.004"
+        ]
+    ],
+    "CreateAccessKey": [
+        [
+            "attack.execution",
+            "attack.persistence",
+            "attack.t1059.009",
+            "attack.t1078.004"
+        ]
+    ],
+    "CreateDevEndpoint": [
+        [
+            "attack.privilege_escalation"
+        ]
+    ],
+    "DeleteDevEndpoint": [
+        [
+            "attack.privilege_escalation"
+        ]
+    ],
+    "UpdateDevEndpoint": [
+        [
+            "attack.privilege_escalation"
+        ]
+    ],
+    "DisableDomainTransferLock": [
+        [
+            "attack.persistence",
+            "attack.credential_access",
+            "attack.t1098"
+        ]
+    ],
+    "TransferDomainToAnotherAwsAccount": [
+        [
+            "attack.persistence",
+            "attack.credential_access",
+            "attack.t1098"
+        ]
+    ],
+    "PutBucketLogging": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "PutBucketWebsite": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "PutEncryptionConfiguration": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "PutLifecycleConfiguration": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "PutReplicationConfiguration": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "ReplicateObject": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "RestoreObject": [
+        [
+            "attack.exfiltration",
+            "attack.t1537"
+        ]
+    ],
+    "BatchUpdateFindings": [
+        [
+            "attack.defense_evasion",
+            "attack.t1562"
+        ]
+    ],
+    "DeleteInsight": [
+        [
+            "attack.defense_evasion",
+            "attack.t1562"
+        ]
+    ],
+    "UpdateFindings": [
+        [
+            "attack.defense_evasion",
+            "attack.t1562"
+        ]
+    ],
+    "UpdateInsight": [
+        [
+            "attack.defense_evasion",
+            "attack.t1562"
+        ]
+    ],
+    "AssociateDirectory": [
+        [
+            "attack.persistence",
+            "attack.t1556"
+        ]
+    ],
+    "DisableExternalIdPConfigurationForDirectory": [
+        [
+            "attack.persistence",
+            "attack.t1556"
+        ]
+    ],
+    "DisassociateDirectory": [
+        [
+            "attack.persistence",
+            "attack.t1556"
+        ]
+    ],
+    "EnableExternalIdPConfigurationForDirectory": [
+        [
+            "attack.persistence",
+            "attack.t1556"
+        ]
+    ],
+    "GetSessionToken": [
+        [
+            "attack.lateral_movement",
+            "attack.privilege_escalation",
+            "attack.t1548",
+            "attack.t1550",
+            "attack.t1550.001"
+        ]
+    ]
+}

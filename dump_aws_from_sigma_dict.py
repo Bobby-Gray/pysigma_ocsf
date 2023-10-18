@@ -24,7 +24,7 @@ def test():
                                     if k3 == 'eventName':
                                         if isinstance(v3, str):
                                             if v3 not in aws_rules_methods.keys():
-                                                aws_rules_methods.update({v3 : [tags]})
+                                                aws_rules_methods.update({v3: [tags]})
                                             else:
                                                 for tag in tags:
                                                     method = aws_rules_methods.get(v3)
@@ -32,10 +32,11 @@ def test():
                                                         for k4, v4 in method.items():
                                                             if tag not in v4:
                                                                 v4.append(tag)
-                                        if isinstance(v3, dict):
+                                                        aws_rules_methods.update({v3: [v4]})
+                                        if isinstance(v3, list):
                                             for k5 in v3:
                                                 if k5 not in aws_rules_methods.keys():
-                                                    aws_rules_methods.update({k5 : [tags]})
+                                                    aws_rules_methods.update({k5: [tags]})
                                                 else:
                                                     for tag in tags:
                                                         method = aws_rules_methods.get(k5)
@@ -43,8 +44,10 @@ def test():
                                                             for k6, v6 in method.items():
                                                                 if tag not in v6:
                                                                     v6.append(tag)
-        with open('cloud_aws_dict.json', 'w') as fp:
-            json.dump(aws_rules_methods, fp)
+                                                            aws_rules_methods.update({k5: [v6] })
+    with open('cloud_aws_dict.json', 'w') as fp:
+        json.dump(aws_rules_methods, fp, indent=4)
+    
                                     
 
 
