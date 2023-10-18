@@ -113,6 +113,43 @@ class SigmaOcsfRuleConversion:
                                 print(f'More!\n\n')
                                 break 
         return self.rules
+    
+    def parse_rule_yaml(self):
+        self.cat_rules = self.rules
+        for cat0, yaml_url0 in self.cat_rules.items():
+            if isinstance(yaml_url0, str):
+                yaml_raw_url0 = yaml_url0.replace("/tree/", "/raw/")
+                url0_response = requests.get(yaml_raw_url0)
+                url0_yaml = {}
+                yaml0 = url0_response.content.decode("utf-8")
+                yaml0_load = yaml.safe_load(yaml0)
+                for field0 in yaml0_load:
+                    pprint(f'{cat0}_fields: {field0}')
+            if isinstance(yaml_url0, dict):
+                for cat1, yaml_url1 in yaml_url0.items():
+                    if isinstance(yaml_url1, str):
+                        yaml_raw_url1 = yaml_url1.replace("/tree/", "/raw/")
+                        url1_response = requests.get(yaml_raw_url1)
+                        url1_yaml = {}
+                        yaml1 = url1_response.content.decode("utf-8")
+                        yaml1_load = yaml.safe_load(yaml1)
+                        for field1 in yaml1_load:
+                            pprint(f'{cat1}_fields: {field1}')
+                    if isinstance(yaml_url1, dict):
+                        for cat2, yaml_url2 in yaml_url1.items():
+                            if isinstance(yaml_url2, str):
+                                yaml_raw_url2 = yaml_url2.replace("/tree/", "/raw/")
+                                url2_response = requests.get(yaml_raw_url2)
+                                url2_yaml = {}
+                                yaml2 = url2_response.content.decode("utf-8")
+                                yaml2_load = yaml.safe_load(yaml2)
+                                for field2, val2 in yaml2_load.items():
+                                    pprint(f'{cat2}_cat2 \n {field2}_field2 {val2}_val2')
+                                    break
+                                break
+                            break
+                        break
+
 
 sigma_ocsf_rule_conversion = SigmaOcsfRuleConversion()
 
@@ -120,5 +157,7 @@ sigma_categories = sigma_ocsf_rule_conversion.get_sigma_categories()
 
 sigma_rules = sigma_ocsf_rule_conversion.get_sigma_rules()
 
+rule_yaml = sigma_ocsf_rule_conversion.parse_rule_yaml()
+
 if __name__=="__main__":
-    pprint(sigma_rules, indent=4)
+    pprint(rule_yaml, indent=4)
