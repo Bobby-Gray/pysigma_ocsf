@@ -1,8 +1,4 @@
-from bs4 import BeautifulSoup
-from collections.abc import MutableMapping
 import json
-from numpy import column_stack, int_
-import pandas as pd 
 from pprint import pprint
 import requests
 import yaml
@@ -10,7 +6,7 @@ import yaml
 
 class SearchBuilder: 
     def __init__(self):
-        self.rules_json = input("Enter rules_dict.json file") or 'rules_dict.json'
+        self.rules_json = input("Enter rules_dict.json file") or 'aws_gcp_rules_dict.json'
         with open(self.rules_json) as rules_json:
             rules_r = rules_json.read()
             self.rules = json.loads(rules_r)
@@ -22,7 +18,6 @@ class SearchBuilder:
         keywords = 0
         one_of = 0
         all_of = 0
-        condition_else = 0
         parenthesis = 0
         not_field = 0
         not_field_and_field = 0
@@ -86,24 +81,23 @@ class SearchBuilder:
             tags = v.get("tags")
             if str(condition) == "selection":
                 if isinstance(selection, dict):
-                    s_d = {}
                     for ks, vs in selection.items():
                         if isinstance(vs, str):
                             if str(ks).endswith("|contains"):
                                 ks_split = str(ks).split("|contains")
                                 search  = ks_split[0] + "=" + '"*' + str(vs) + '*"'
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                             elif str(ks).endswith("|startswith"):
                                 ks_split = str(ks).split("|startswith")
                                 search  = ks_split[0] + "=" + '"' + str(vs) + '*"'
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                             elif str(ks).endswith("|endswith"):
                                 ks_split = str(ks).split("|endswith")
                                 search  = ks_split[0] + "=" + '"*' + str(vs) + '"'
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                             else:
                                 search  = str(ks) + "=" + '"' + str(vs) + '"'
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                         if isinstance(vs, list):
                             if str(ks).endswith("|contains"):
                                 s_or = []
@@ -114,7 +108,7 @@ class SearchBuilder:
                                 for ss_or in s_or:
                                     search += str(ss_or) + " OR "
                                 search = str(search).rstrip(" OR ")
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                             elif str(ks).endswith("|startswith"):
                                 s_or = []
                                 search = ""
@@ -124,7 +118,7 @@ class SearchBuilder:
                                 for ss_or in s_or:
                                     search += str(ss_or) + " OR "
                                 search = str(search).rstrip(" OR ")
-                                s_d.update({k: {search}})
+                                self.searches.update({k: {search}})
                             elif str(ks).endswith("|endswith"):
                                 s_or = []
                                 search = ""
@@ -134,21 +128,20 @@ class SearchBuilder:
                                 for ss_or in s_or:
                                     search += str(ss_or) + " OR "
                                 search = str(search).rstrip(" OR ")
-                                s_d.update({k: {search}})
-                            # else:
-                            #     s_or = []
-                            #     search = ""
-                            #     ks_split = str(ks).split("|endswith")
-                            #     for xs in vs:
-                            #         s_or.append(ks_split[0] + "=" + '"' + str(vs) + '"')
-                            #     for ss_or in s_or:
-                            #         search += str(ss_or) + " OR "
-                            #     search = str(search).rstrip(" OR ")
-                            #     s_d.update({k: {search}})
-                        self.searches.update(s_d)
-        #         if isinstance(selection, list):
-        #             print("list")
+                                self.searches.update({k: {search}})
+                            else:
+                                s_or = []
+                                search = ""
+                                for xs in vs:
+                                    s_or.append(ks + "=" + '"' + str(xs) + '"')
+                                for ss_or in s_or:
+                                    search += str(ss_or) + " OR "
+                                search = str(search).rstrip(" OR ")
+                                self.searches.update({k: {search}})
+                if isinstance(selection, list):
+                    print("list")
         pprint(self.searches, indent=4)
+        return self.searches
 
         # else:
         #     print(condition)
