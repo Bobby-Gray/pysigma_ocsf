@@ -20,7 +20,7 @@ class RuleRepoStrReplace:
         filenames = self.filenames
         self.logsource_meta = {}
         for i in filenames:
-            if str(i).endswith(".yml"):
+            if str(i).startswith("rules/cloud/gcp"):
                 try:
                     with open(""+i, "r") as ry: 
                         yaml_load = yaml.safe_load(ry)
