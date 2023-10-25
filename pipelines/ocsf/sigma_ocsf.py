@@ -31,61 +31,70 @@ def ocsf_pipeline():
         name="Generic Log Sources to OCSF Transformation",
         priority=10,
         items=[
-            # Process Creation field mapping
             ProcessingItem(
-                identifier="ocsf_cloud_fieldmapping",
+                identifier="ocsf_cloud_aws_fieldmapping",
                 transformation=FieldMappingTransformation({
                     "eventName": "api.operation",
-                    "gcp.audit.method_name": "api.operation" 
+                    "eventSource": "api.service.name"
                 }),
+                rule_conditions=[
+                    logsource_ocsf_cloud_aws()
+                ]
+            ),
+            ProcessingItem(
+                identifier="ocsf_cloud_gcp_fieldmapping",
+                transformation=FieldMappingTransformation({
+                    "gcp.audit.method_name": "api.operation",
+                    "eventSource": "api.service.name"
+                }),
+                rule_conditions=[
+                    logsource_ocsf_cloud_gcp()
+                ]
+            ),
+            # change logsource property
+            ProcessingItem(
+                identifier="ocsf_cloud_aws_logsource",
+                transformation=ChangeLogsourceTransformation(
+                    product="AWS",
+                    service="Cloudtrail"
+                ),
                 rule_conditions=[
                     logsource_ocsf_cloud_aws(),
                 ]
             ),
-        # change logsource property
-        ProcessingItem(
-            identifier="ocsf_cloud_aws_logsource",
-            transformation=ChangeLogsourceTransformation(
-                product="AWS",
-                service="Cloudtrail"
+            # change logsource property
+            ProcessingItem(
+                identifier="ocsf_cloud_gcp_logsource",
+                transformation=ChangeLogsourceTransformation(
+                    product="GCP",
+                    service="Cloud Audit Logs"
+                ),
+                rule_conditions=[
+                    logsource_ocsf_cloud_gcp(),
+                ]
             ),
-            rule_conditions=[
-                logsource_ocsf_cloud_aws(),
-            ]
-        ),
-        # change logsource property
-        ProcessingItem(
-            identifier="ocsf_cloud_gcp_logsource",
-            transformation=ChangeLogsourceTransformation(
-                product="GCP",
-                service="Cloud Audit Logs"
+            # Handle unsupported log sources - here we are checking whether none of the log source-specific transformations
+            # that were set above have applied and throwing a RuleFailureTransformation error if this condition is met. Otherwise,
+            # a separate processing item would be needed for every unsupported log source type
+            ProcessingItem(
+                identifier="ocsf_fail_rule_not_supported",
+                rule_condition_linking=any,
+                transformation=RuleFailureTransformation("Rule type not yet supported by OCSF Sigma backend!"),
+                rule_condition_negation=True,
+                rule_conditions=[
+                    RuleProcessingItemAppliedCondition("ocsf_cloud_aws_fieldmapping"),
+                    RuleProcessingItemAppliedCondition("ocsf_cloud_aws_logsource"),
+                    RuleProcessingItemAppliedCondition("ocsf_cloud_gcp_logsource")
+                ],
             ),
-            rule_conditions=[
-                logsource_ocsf_cloud_gcp(),
-            ]
-        ),
-        # Handle unsupported log sources - here we are checking whether none of the log source-specific transformations
-        # that were set above have applied and throwing a RuleFailureTransformation error if this condition is met. Otherwise,
-        # a separate processing item would be needed for every unsupported log source type
-        ProcessingItem(
-            identifier="ocsf_fail_rule_not_supported",
-            rule_condition_linking=any,
-            transformation=RuleFailureTransformation("Rule type not yet supported by OCSF Sigma backend!"),
-            rule_condition_negation=True,
-            rule_conditions=[
-                RuleProcessingItemAppliedCondition("ocsf_cloud_fieldmapping"),
-                RuleProcessingItemAppliedCondition("ocsf_cloud_aws_logsource"),
-                RuleProcessingItemAppliedCondition("ocsf_cloud_gcp_logsource")
-            ],
-        ),
-        
-        # Handle rules that use aggregate functions
-        ProcessingItem(
-            identifier="ocsf_fail_rule_conditions_not_supported",
-            transformation=RuleFailureTransformation("Rules with aggregate function conditions like count, min, max, avg, sum, and near are not supported by the OCSF Sigma backend!"),
-            rule_conditions=[
-                AggregateRuleProcessingCondition()
-            ],
+            
+            # Handle rules that use aggregate functions
+            ProcessingItem(
+                identifier="ocsf_fail_rule_conditions_not_supported",
+                transformation=RuleFailureTransformation("Rules with aggregate function conditions like count, min, max, avg, sum, and near are not supported by the OCSF Sigma backend!"),
+                rule_conditions=[
+                    AggregateRuleProcessingCondition()
+                ],
         )
     ]
 )
