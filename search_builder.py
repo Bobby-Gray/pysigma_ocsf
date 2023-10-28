@@ -75,6 +75,7 @@ class SearchBuilder:
     def parse_searches(self):
         self.searches = {}
         for k, v in self.rules.items():
+            logsource = v.get("logsource")
             detection = v.get("detection")
             selection = detection.get("selection")
             condition = detection.get("condition")

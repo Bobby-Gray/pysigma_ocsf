@@ -35,7 +35,8 @@ def ocsf_pipeline():
                 identifier="ocsf_cloud_aws_fieldmapping",
                 transformation=FieldMappingTransformation({
                     "eventName": "api.operation",
-                    "eventSource": "api.service.name"
+                    "eventSource": "api.service.name",
+                    "userIdentity.arn": "actor.user.uid"
                 }),
                 rule_conditions=[
                     logsource_ocsf_cloud_aws()

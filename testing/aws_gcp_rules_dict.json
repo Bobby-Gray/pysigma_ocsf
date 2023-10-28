@@ -1,0 +1,1923 @@
+{ "aws_attached_malicious_lambda_layer.yml": {
+    "title": "AWS Attached Malicious Lambda Layer",
+    "id": "97fbabf8-8e1b-47a2-b7d5-a418d2b95e3d",
+    "status": "Detects when an user attached a Lambda layer to an existing function to override a library that is in use by the function, where their malicious code could utilize the function's IAM role for AWS API calls.\nThis would give an adversary access to the privileges associated with the Lambda service role that is attached to that function.\n",
+    "description": "Detects when an user attached a Lambda layer to an existing function to override a library that is in use by the function, where their malicious code could utilize the function's IAM role for AWS API calls.\nThis would give an adversary access to the privileges associated with the Lambda service role that is attached to that function.\n",
+    "references": [
+      "https://docs.aws.amazon.com/lambda/latest/dg/API_UpdateFunctionConfiguration.html"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/09/23",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.privilege_escalation"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "lambda.amazonaws.com",
+        "eventName|startswith": "UpdateFunctionConfiguration"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Lambda Layer being attached may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Lambda Layer being attached from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_attached_malicious_lambda_layer.yml"
+  },
+  "aws_cloudtrail_disable_logging.yml": {
+    "title": "AWS CloudTrail Important Change",
+    "id": "4db60cc0-36fb-42b7-9b58-a5b53019fb74",
+    "status": "Detects disabling, deleting and updating of a Trail",
+    "description": "Detects disabling, deleting and updating of a Trail",
+    "references": [
+      "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/best-practices-security.html"
+    ],
+    "author": "vitaliy0x1",
+    "date": "2020/01/21",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1562.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "cloudtrail.amazonaws.com",
+        "eventName": [
+          "StopLogging",
+          "UpdateTrail",
+          "DeleteTrail"
+        ]
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Valid change in a Trail"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_cloudtrail_disable_logging.yml"
+  },
+  "aws_config_disable_recording.yml": {
+    "title": "AWS Config Disabling Channel/Recorder",
+    "id": "07330162-dba1-4746-8121-a9647d49d297",
+    "status": "Detects AWS Config Service disabling",
+    "description": "Detects AWS Config Service disabling",
+    "references": null,
+    "author": "vitaliy0x1",
+    "date": "2020/01/21",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1562.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "config.amazonaws.com",
+        "eventName": [
+          "DeleteDeliveryChannel",
+          "StopConfigurationRecorder"
+        ]
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Valid change in AWS Config Service"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_config_disable_recording.yml"
+  },
+  "aws_delete_identity.yml": {
+    "title": "SES Identity Has Been Deleted",
+    "id": "20f754db-d025-4a8f-9d74-e0037e999a9a",
+    "status": "Detects an instance of an SES identity being deleted via the \"DeleteIdentity\" event. This may be an indicator of an adversary removing the account that carried out suspicious or malicious activities",
+    "description": "Detects an instance of an SES identity being deleted via the \"DeleteIdentity\" event. This may be an indicator of an adversary removing the account that carried out suspicious or malicious activities",
+    "references": [
+      "https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/"
+    ],
+    "author": "Janantha Marasinghe",
+    "date": "2022/12/13",
+    "modified": "2022/12/28",
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1070"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "ses.amazonaws.com",
+        "eventName": "DeleteIdentity"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_delete_identity.yml"
+  },
+  "aws_ec2_disable_encryption.yml": {
+    "title": "AWS EC2 Disable EBS Encryption",
+    "id": "16124c2d-e40b-4fcc-8f2c-5ab7870a2223",
+    "status": "Identifies disabling of default Amazon Elastic Block Store (EBS) encryption in the current region.\nDisabling default encryption does not change the encryption status of your existing volumes.\n",
+    "description": "Identifies disabling of default Amazon Elastic Block Store (EBS) encryption in the current region.\nDisabling default encryption does not change the encryption status of your existing volumes.\n",
+    "references": [
+      "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisableEbsEncryptionByDefault.html"
+    ],
+    "author": "Sittikorn S",
+    "date": "2021/06/29",
+    "modified": "2021/08/20",
+    "tags": [
+      "attack.impact",
+      "attack.t1486",
+      "attack.t1565"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "ec2.amazonaws.com",
+        "eventName": "DisableEbsEncryptionByDefault"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "System Administrator Activities",
+      "DEV, UAT, SAT environment. You should apply this rule with PROD account only."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_ec2_disable_encryption.yml"
+  },
+  "aws_ec2_startup_script_change.yml": {
+    "title": "AWS EC2 Startup Shell Script Change",
+    "id": "1ab3c5ed-5baf-417b-bb6b-78ca33f6c3df",
+    "status": "Detects changes to the EC2 instance startup script. The shell script will be executed as root/SYSTEM every time the specific instances are booted up.",
+    "description": "Detects changes to the EC2 instance startup script. The shell script will be executed as root/SYSTEM every time the specific instances are booted up.",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/ec2__startup_shell_script/main.py#L9"
+    ],
+    "author": "faloker",
+    "date": "2020/02/12",
+    "modified": "2022/06/07",
+    "tags": [
+      "attack.execution",
+      "attack.t1059.001",
+      "attack.t1059.003",
+      "attack.t1059.004"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "ec2.amazonaws.com",
+        "requestParameters.attribute": "userData",
+        "eventName": "ModifyInstanceAttribute"
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Valid changes to the startup script"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_ec2_startup_script_change.yml"
+  },
+  "aws_ec2_vm_export_failure.yml": {
+    "title": "AWS EC2 VM Export Failure",
+    "id": "54b9a76a-3c71-4673-b4b3-2edb4566ea7b",
+    "status": "An attempt to export an AWS EC2 instance has been detected. A VM Export might indicate an attempt to extract information from an instance.",
+    "description": "An attempt to export an AWS EC2 instance has been detected. A VM Export might indicate an attempt to extract information from an instance.",
+    "references": [
+      "https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#export-instance"
+    ],
+    "author": "Diogo Braz",
+    "date": "2020/04/16",
+    "modified": "2022/10/05",
+    "tags": [
+      "attack.collection",
+      "attack.t1005",
+      "attack.exfiltration",
+      "attack.t1537"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventName": "CreateInstanceExportTask",
+        "eventSource": "ec2.amazonaws.com"
+      },
+      "filter1": {
+        "errorMessage|contains": "*"
+      },
+      "filter2": {
+        "errorCode|contains": "*"
+      },
+      "filter3": {
+        "responseElements|contains": "Failure"
+      },
+      "condition": "selection and not 1 of filter*"
+    },
+    "falsepositives": null,
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_ec2_vm_export_failure.yml"
+  },
+  "aws_ecs_task_definition_cred_endpoint_query.yml": {
+    "title": "AWS ECS Task Definition That Queries The Credential Endpoint",
+    "id": "b94bf91e-c2bf-4047-9c43-c6810f43baad",
+    "status": "Detects when an Elastic Container Service (ECS) Task Definition includes a command to query the credential endpoint.\nThis can indicate a potential adversary adding a backdoor to establish persistence or escalate privileges.\n",
+    "description": "Detects when an Elastic Container Service (ECS) Task Definition includes a command to query the credential endpoint.\nThis can indicate a potential adversary adding a backdoor to establish persistence or escalate privileges.\n",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/ecs__backdoor_task_def/main.py",
+      "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RegisterTaskDefinition.html",
+      "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html"
+    ],
+    "author": "Darin Smith",
+    "date": "2022/06/07",
+    "modified": "2023/04/24",
+    "tags": [
+      "attack.persistence",
+      "attack.t1525"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "ecs.amazonaws.com",
+        "eventName": [
+          "DescribeTaskDefinition",
+          "RegisterTaskDefinition",
+          "RunTask"
+        ],
+        "requestParameters.containerDefinitions.command|contains": "$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Task Definition being modified to request credentials from the Task Metadata Service for valid reasons"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_ecs_task_definition_cred_endpoint_query.yml"
+  },
+  "aws_efs_fileshare_modified_or_deleted.yml": {
+    "title": "AWS EFS Fileshare Modified or Deleted",
+    "id": "25cb1ba1-8a19-4a23-a198-d252664c8cef",
+    "status": "Detects when a EFS Fileshare is modified or deleted.\nYou can't delete a file system that is in use.\nIf the file system has any mount targets, the adversary must first delete them, so deletion of a mount will occur before deletion of a fileshare.\n",
+    "description": "Detects when a EFS Fileshare is modified or deleted.\nYou can't delete a file system that is in use.\nIf the file system has any mount targets, the adversary must first delete them, so deletion of a mount will occur before deletion of a fileshare.\n",
+    "references": [
+      "https://docs.aws.amazon.com/efs/latest/ug/API_DeleteFileSystem.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/15",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "elasticfilesystem.amazonaws.com",
+        "eventName": "DeleteFileSystem"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_efs_fileshare_modified_or_deleted.yml"
+  },
+  "aws_efs_fileshare_mount_modified_or_deleted.yml": {
+    "title": "AWS EFS Fileshare Mount Modified or Deleted",
+    "id": "6a7ba45c-63d8-473e-9736-2eaabff79964",
+    "status": "Detects when a EFS Fileshare Mount is modified or deleted. An adversary breaking any file system using the mount target that is being deleted, which might disrupt instances or applications using those mounts.",
+    "description": "Detects when a EFS Fileshare Mount is modified or deleted. An adversary breaking any file system using the mount target that is being deleted, which might disrupt instances or applications using those mounts.",
+    "references": [
+      "https://docs.aws.amazon.com/efs/latest/ug/API_DeleteMountTarget.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/15",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact",
+      "attack.t1485"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "elasticfilesystem.amazonaws.com",
+        "eventName": "DeleteMountTarget"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_efs_fileshare_mount_modified_or_deleted.yml"
+  },
+  "aws_eks_cluster_created_or_deleted.yml": {
+    "title": "AWS EKS Cluster Created or Deleted",
+    "id": "33d50d03-20ec-4b74-a74e-1e65a38af1c0",
+    "status": "Identifies when an EKS cluster is created or deleted.",
+    "description": "Identifies when an EKS cluster is created or deleted.",
+    "references": [
+      "https://any-api.com/amazonaws_com/eks/docs/API_Description"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/16",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact",
+      "attack.t1485"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "eks.amazonaws.com",
+        "eventName": [
+          "CreateCluster",
+          "DeleteCluster"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "EKS Cluster being created or deleted may be performed by a system administrator.",
+      "Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "EKS Cluster created or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_eks_cluster_created_or_deleted.yml"
+  },
+  "aws_elasticache_security_group_created.yml": {
+    "title": "AWS ElastiCache Security Group Created",
+    "id": "4ae68615-866f-4304-b24b-ba048dfa5ca7",
+    "status": "Detects when an ElastiCache security group has been created.",
+    "description": "Detects when an ElastiCache security group has been created.",
+    "references": [
+      "https://github.com/elastic/detection-rules/blob/598f3d7e0a63221c0703ad9a0ea7e22e7bc5961e/rules/integrations/aws/persistence_elasticache_security_group_creation.toml"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/07/24",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.persistence",
+      "attack.t1136",
+      "attack.t1136.003"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "elasticache.amazonaws.com",
+        "eventName": "CreateCacheSecurityGroup"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "A ElastiCache security group may be created by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Security group creations from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_elasticache_security_group_created.yml"
+  },
+  "aws_elasticache_security_group_modified_or_deleted.yml": {
+    "title": "AWS ElastiCache Security Group Modified or Deleted",
+    "id": "7c797da2-9cf2-4523-ba64-33b06339f0cc",
+    "status": "Identifies when an ElastiCache security group has been modified or deleted.",
+    "description": "Identifies when an ElastiCache security group has been modified or deleted.",
+    "references": [
+      "https://github.com/elastic/detection-rules/blob/7d5efd68603f42be5e125b5a6a503b2ef3ac0f4e/rules/integrations/aws/impact_elasticache_security_group_modified_or_deleted.toml"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/07/24",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact",
+      "attack.t1531"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "elasticache.amazonaws.com",
+        "eventName": [
+          "DeleteCacheSecurityGroup",
+          "AuthorizeCacheSecurityGroupIngress",
+          "RevokeCacheSecurityGroupIngress",
+          "AuthorizeCacheSecurityGroupEgress",
+          "RevokeCacheSecurityGroupEgress"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "A ElastiCache security group deletion may be done by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Security Group deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_elasticache_security_group_modified_or_deleted.yml"
+  },
+  "aws_enum_buckets.yml": {
+    "title": "Potential Bucket Enumeration on AWS",
+    "id": "f305fd62-beca-47da-ad95-7690a0620084",
+    "status": "Looks for potential enumeration of AWS buckets via ListBuckets.",
+    "description": "Looks for potential enumeration of AWS buckets via ListBuckets.",
+    "references": [
+      "https://github.com/Lifka/hacking-resources/blob/c2ae355d381bd0c9f0b32c4ead049f44e5b1573f/cloud-hacking-cheat-sheets.md",
+      "https://jamesonhacking.blogspot.com/2020/12/pivoting-to-private-aws-s3-buckets.html",
+      "https://securitycafe.ro/2022/12/14/aws-enumeration-part-ii-practical-enumeration/"
+    ],
+    "author": "Christopher Peacock @securepeacock, SCYTHE @scythe_io",
+    "date": "2023/01/06",
+    "modified": "2023/04/28",
+    "tags": [
+      "attack.discovery",
+      "attack.t1580"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "s3.amazonaws.com",
+        "eventName": "ListBuckets"
+      },
+      "filter": {
+        "type": "AssumedRole"
+      },
+      "condition": "selection and not filter"
+    },
+    "falsepositives": [
+      "Administrators listing buckets, it may be necessary to filter out users who commonly conduct this activity."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_enum_buckets.yml"
+  },
+  "aws_guardduty_disruption.yml": {
+    "title": "AWS GuardDuty Important Change",
+    "id": "6e61ee20-ce00-4f8d-8aee-bedd8216f7e3",
+    "status": "Detects updates of the GuardDuty list of trusted IPs, perhaps to disable security alerts against malicious IPs.",
+    "description": "Detects updates of the GuardDuty list of trusted IPs, perhaps to disable security alerts against malicious IPs.",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/guardduty__whitelist_ip/main.py#L9"
+    ],
+    "author": "faloker",
+    "date": "2020/02/11",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1562.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "guardduty.amazonaws.com",
+        "eventName": "CreateIPSet"
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Valid change in the GuardDuty (e.g. to ignore internal scanners)"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_guardduty_disruption.yml"
+  },
+  "aws_iam_backdoor_users_keys.yml": {
+    "title": "AWS IAM Backdoor Users Keys",
+    "id": "0a5177f4-6ca9-44c2-aacf-d3f3d8b6e4d2",
+    "status": "Detects AWS API key creation for a user by another user.\nBackdoored users can be used to obtain persistence in the AWS environment.\nAlso with this alert, you can detect a flow of AWS keys in your org.\n",
+    "description": "Detects AWS API key creation for a user by another user.\nBackdoored users can be used to obtain persistence in the AWS environment.\nAlso with this alert, you can detect a flow of AWS keys in your org.\n",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/iam__backdoor_users_keys/main.py"
+    ],
+    "author": "faloker",
+    "date": "2020/02/12",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.persistence",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": "CreateAccessKey"
+      },
+      "filter": {
+        "userIdentity.arn|contains": "responseElements.accessKey.userName"
+      },
+      "condition": "selection_source and not filter"
+    },
+    "falsepositives": [
+      "Adding user keys to their own accounts (the filter cannot cover all possible variants of user naming)",
+      "AWS API keys legitimate exchange workflows"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_iam_backdoor_users_keys.yml"
+  },
+  "aws_iam_s3browser_loginprofile_creation.yml": {
+    "title": "AWS IAM S3Browser LoginProfile Creation",
+    "id": "db014773-b1d3-46bd-ba26-133337c0ffee",
+    "status": "Detects S3 Browser utility performing reconnaissance looking for existing IAM Users without a LoginProfile defined then (when found) creating a LoginProfile.",
+    "description": "Detects S3 Browser utility performing reconnaissance looking for existing IAM Users without a LoginProfile defined then (when found) creating a LoginProfile.",
+    "references": [
+      "https://permiso.io/blog/s/unmasking-guivil-new-cloud-threat-actor"
+    ],
+    "author": "daniel.bohannon@permiso.io (@danielhbohannon)",
+    "date": "2023/05/17",
+    "modified": null,
+    "tags": [
+      "attack.execution",
+      "attack.persistence",
+      "attack.t1059.009",
+      "attack.t1078.004"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": [
+          "GetLoginProfile",
+          "CreateLoginProfile"
+        ],
+        "userAgent|contains": "S3 Browser"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Valid usage of S3 Browser for IAM LoginProfile listing and/or creation"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_iam_s3browser_loginprofile_creation.yml"
+  },
+  "aws_iam_s3browser_templated_s3_bucket_policy_creation.yml": {
+    "title": "AWS IAM S3Browser Templated S3 Bucket Policy Creation",
+    "id": "db014773-7375-4f4e-b83b-133337c0ffee",
+    "status": "Detects S3 browser utility creating Inline IAM policy containing default S3 bucket name placeholder value of \"<YOUR-BUCKET-NAME>\".",
+    "description": "Detects S3 browser utility creating Inline IAM policy containing default S3 bucket name placeholder value of \"<YOUR-BUCKET-NAME>\".",
+    "references": [
+      "https://permiso.io/blog/s/unmasking-guivil-new-cloud-threat-actor"
+    ],
+    "author": "daniel.bohannon@permiso.io (@danielhbohannon)",
+    "date": "2023/05/17",
+    "modified": "2023/05/17",
+    "tags": [
+      "attack.execution",
+      "attack.t1059.009",
+      "attack.persistence",
+      "attack.t1078.004"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": "PutUserPolicy",
+        "userAgent|contains": "S3 Browser",
+        "requestParameters|contains|all": [
+          "\"arn:aws:s3:::<YOUR-BUCKET-NAME>/*\"",
+          "\"s3:GetObject\"",
+          "\"Allow\""
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Valid usage of S3 browser with accidental creation of default Inline IAM policy without changing default S3 bucket name placeholder value"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_iam_s3browser_templated_s3_bucket_policy_creation.yml"
+  },
+  "aws_iam_s3browser_user_or_accesskey_creation.yml": {
+    "title": "AWS IAM S3Browser User or AccessKey Creation",
+    "id": "db014773-d9d9-4792-91e5-133337c0ffee",
+    "status": "Detects S3 Browser utility creating IAM User or AccessKey.",
+    "description": "Detects S3 Browser utility creating IAM User or AccessKey.",
+    "references": [
+      "https://permiso.io/blog/s/unmasking-guivil-new-cloud-threat-actor"
+    ],
+    "author": "daniel.bohannon@permiso.io (@danielhbohannon)",
+    "date": "2023/05/17",
+    "modified": null,
+    "tags": [
+      "attack.execution",
+      "attack.persistence",
+      "attack.t1059.009",
+      "attack.t1078.004"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": [
+          "CreateUser",
+          "CreateAccessKey"
+        ],
+        "userAgent|contains": "S3 Browser"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Valid usage of S3 Browser for IAM User and/or AccessKey creation"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_iam_s3browser_user_or_accesskey_creation.yml"
+  },
+  "aws_passed_role_to_glue_development_endpoint.yml": {
+    "title": "AWS Glue Development Endpoint Activity",
+    "id": "4990c2e3-f4b8-45e3-bc3c-30b14ff0ed26",
+    "status": "Detects possible suspicious glue development endpoint activity.",
+    "description": "Detects possible suspicious glue development endpoint activity.",
+    "references": [
+      "https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation/",
+      "https://docs.aws.amazon.com/glue/latest/webapi/API_CreateDevEndpoint.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/10/03",
+    "modified": "2022/12/18",
+    "tags": [
+      "attack.privilege_escalation"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "glue.amazonaws.com",
+        "eventName": [
+          "CreateDevEndpoint",
+          "DeleteDevEndpoint",
+          "UpdateDevEndpoint"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Glue Development Endpoint Activity may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_passed_role_to_glue_development_endpoint.yml"
+  },
+  "aws_rds_change_master_password.yml": {
+    "title": "AWS RDS Master Password Change",
+    "id": "8a63cdd4-6207-414a-85bc-7e032bd3c1a2",
+    "status": "Detects the change of database master password. It may be a part of data exfiltration.",
+    "description": "Detects the change of database master password. It may be a part of data exfiltration.",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/rds__explore_snapshots/main.py"
+    ],
+    "author": "faloker",
+    "date": "2020/02/12",
+    "modified": "2022/10/05",
+    "tags": [
+      "attack.exfiltration",
+      "attack.t1020"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "rds.amazonaws.com",
+        "responseElements.pendingModifiedValues.masterUserPassword|contains": "*",
+        "eventName": "ModifyDBInstance"
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Benign changes to a db instance"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_rds_change_master_password.yml"
+  },
+  "aws_rds_public_db_restore.yml": {
+    "title": "Restore Public AWS RDS Instance",
+    "id": "c3f265c7-ff03-4056-8ab2-d486227b4599",
+    "status": "Detects the recovery of a new public database instance from a snapshot. It may be a part of data exfiltration.",
+    "description": "Detects the recovery of a new public database instance from a snapshot. It may be a part of data exfiltration.",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/pacu/blob/866376cd711666c775bbfcde0524c817f2c5b181/pacu/modules/rds__explore_snapshots/main.py"
+    ],
+    "author": "faloker",
+    "date": "2020/02/12",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.exfiltration",
+      "attack.t1020"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "rds.amazonaws.com",
+        "responseElements.publiclyAccessible": "true",
+        "eventName": "RestoreDBInstanceFromDBSnapshot"
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_rds_public_db_restore.yml"
+  },
+  "aws_root_account_usage.yml": {
+    "title": "AWS Root Credentials",
+    "id": "8ad1600d-e9dc-4251-b0ee-a65268f29add",
+    "status": "Detects AWS root account usage",
+    "description": "Detects AWS root account usage",
+    "references": [
+      "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
+    ],
+    "author": "vitaliy0x1",
+    "date": "2020/01/21",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.privilege_escalation",
+      "attack.t1078.004"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_usertype": {
+        "userIdentity.type": "Root"
+      },
+      "selection_eventtype": {
+        "eventType": "AwsServiceEvent"
+      },
+      "condition": "selection_usertype and not selection_eventtype"
+    },
+    "falsepositives": [
+      "AWS Tasks That Require AWS Account Root User Credentials https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_root_account_usage.yml"
+  },
+  "aws_route_53_domain_transferred_lock_disabled.yml": {
+    "title": "AWS Route 53 Domain Transfer Lock Disabled",
+    "id": "3940b5f1-3f46-44aa-b746-ebe615b879e0",
+    "status": "Detects when a transfer lock was removed from a Route 53 domain. It is recommended to refrain from performing this action unless intending to transfer the domain to a different registrar.",
+    "description": "Detects when a transfer lock was removed from a Route 53 domain. It is recommended to refrain from performing this action unless intending to transfer the domain to a different registrar.",
+    "references": [
+      "https://github.com/elastic/detection-rules/blob/c76a39796972ecde44cb1da6df47f1b6562c9770/rules/integrations/aws/persistence_route_53_domain_transfer_lock_disabled.toml",
+      "https://docs.aws.amazon.com/Route53/latest/APIReference/API_Operations_Amazon_Route_53.html",
+      "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_DisableDomainTransferLock.html"
+    ],
+    "author": "Elastic, Austin Songer @austinsonger",
+    "date": "2021/07/22",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.persistence",
+      "attack.credential_access",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "route53.amazonaws.com",
+        "eventName": "DisableDomainTransferLock"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "A domain transfer lock may be disabled by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Activity from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_route_53_domain_transferred_lock_disabled.yml"
+  },
+  "aws_route_53_domain_transferred_to_another_account.yml": {
+    "title": "AWS Route 53 Domain Transferred to Another Account",
+    "id": "b056de1a-6e6e-4e40-a67e-97c9808cf41b",
+    "status": "Detects when a request has been made to transfer a Route 53 domain to another AWS account.",
+    "description": "Detects when a request has been made to transfer a Route 53 domain to another AWS account.",
+    "references": [
+      "https://github.com/elastic/detection-rules/blob/c76a39796972ecde44cb1da6df47f1b6562c9770/rules/integrations/aws/persistence_route_53_domain_transferred_to_another_account.toml"
+    ],
+    "author": "Elastic, Austin Songer @austinsonger",
+    "date": "2021/07/22",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.persistence",
+      "attack.credential_access",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "route53.amazonaws.com",
+        "eventName": "TransferDomainToAnotherAwsAccount"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "A domain may be transferred to another AWS account by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Domain transfers from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_route_53_domain_transferred_to_another_account.yml"
+  },
+  "aws_s3_data_management_tampering.yml": {
+    "title": "AWS S3 Data Management Tampering",
+    "id": "78b3756a-7804-4ef7-8555-7b9024a02e2d",
+    "status": "Detects when a user tampers with S3 data management in Amazon Web Services.",
+    "description": "Detects when a user tampers with S3 data management in Amazon Web Services.",
+    "references": [
+      "https://github.com/elastic/detection-rules/pull/1145/files",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_Operations.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLogging.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/userguide/setting-repl-config-perm-overview.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/07/24",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.exfiltration",
+      "attack.t1537"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "s3.amazonaws.com",
+        "eventName": [
+          "PutBucketLogging",
+          "PutBucketWebsite",
+          "PutEncryptionConfiguration",
+          "PutLifecycleConfiguration",
+          "PutReplicationConfiguration",
+          "ReplicateObject",
+          "RestoreObject"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "A S3 configuration change may be done by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. S3 configuration change from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_s3_data_management_tampering.yml"
+  },
+  "aws_securityhub_finding_evasion.yml": {
+    "title": "AWS SecurityHub Findings Evasion",
+    "id": "a607e1fe-74bf-4440-a3ec-b059b9103157",
+    "status": "Detects the modification of the findings on SecurityHub.",
+    "description": "Detects the modification of the findings on SecurityHub.",
+    "references": [
+      "https://docs.aws.amazon.com/cli/latest/reference/securityhub/"
+    ],
+    "author": "Sittikorn S",
+    "date": "2021/06/28",
+    "modified": null,
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1562"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "securityhub.amazonaws.com",
+        "eventName": [
+          "BatchUpdateFindings",
+          "DeleteInsight",
+          "UpdateFindings",
+          "UpdateInsight"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "System or Network administrator behaviors",
+      "DEV, UAT, SAT environment. You should apply this rule with PROD environment only."
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_securityhub_finding_evasion.yml"
+  },
+  "aws_snapshot_backup_exfiltration.yml": {
+    "title": "AWS Snapshot Backup Exfiltration",
+    "id": "abae8fec-57bd-4f87-aff6-6e3db989843d",
+    "status": "Detects the modification of an EC2 snapshot's permissions to enable access from another account",
+    "description": "Detects the modification of an EC2 snapshot's permissions to enable access from another account",
+    "references": [
+      "https://www.justice.gov/file/1080281/download"
+    ],
+    "author": "Darin Smith",
+    "date": "2021/05/17",
+    "modified": "2021/08/19",
+    "tags": [
+      "attack.exfiltration",
+      "attack.t1537"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "ec2.amazonaws.com",
+        "eventName": "ModifySnapshotAttribute"
+      },
+      "condition": "selection_source"
+    },
+    "falsepositives": [
+      "Valid change to a snapshot's permissions"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_snapshot_backup_exfiltration.yml"
+  },
+  "aws_sso_idp_change.yml": {
+    "title": "AWS Identity Center Identity Provider Change",
+    "id": "d3adb3ef-b7e7-4003-9092-1924c797db35",
+    "status": "Detects a change in the AWS Identity Center (FKA AWS SSO) identity provider.\nA change in identity provider allows an attacker to establish persistent access or escalate privileges via user impersonation.\n",
+    "description": "Detects a change in the AWS Identity Center (FKA AWS SSO) identity provider.\nA change in identity provider allows an attacker to establish persistent access or escalate privileges via user impersonation.\n",
+    "references": [
+      "https://docs.aws.amazon.com/singlesignon/latest/userguide/app-enablement.html",
+      "https://docs.aws.amazon.com/singlesignon/latest/userguide/sso-info-in-cloudtrail.html",
+      "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiamidentitycentersuccessortoawssinglesign-on.html"
+    ],
+    "author": "Michael McIntyre @wtfender",
+    "date": "2023/09/27",
+    "modified": null,
+    "tags": [
+      "attack.persistence",
+      "attack.t1556"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": [
+          "sso-directory.amazonaws.com",
+          "sso.amazonaws.com"
+        ],
+        "eventName": [
+          "AssociateDirectory",
+          "DisableExternalIdPConfigurationForDirectory",
+          "DisassociateDirectory",
+          "EnableExternalIdPConfigurationForDirectory"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Authorized changes to the AWS account's identity provider"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_sso_idp_change.yml"
+  },
+  "aws_sts_assumerole_misuse.yml": {
+    "title": "AWS STS AssumeRole Misuse",
+    "id": "905d389b-b853-46d0-9d3d-dea0d3a3cd49",
+    "status": "Identifies the suspicious use of AssumeRole. Attackers could move laterally and escalate privileges.",
+    "description": "Identifies the suspicious use of AssumeRole. Attackers could move laterally and escalate privileges.",
+    "references": [
+      "https://github.com/elastic/detection-rules/pull/1214",
+      "https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/07/24",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.lateral_movement",
+      "attack.privilege_escalation",
+      "attack.t1548",
+      "attack.t1550",
+      "attack.t1550.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "userIdentity.type": "AssumedRole",
+        "userIdentity.sessionContext.sessionIssuer.type": "Role"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "AssumeRole may be done by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "AssumeRole from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule.",
+      "Automated processes that uses Terraform may lead to false positives."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_sts_assumerole_misuse.yml"
+  },
+  "aws_sts_getsessiontoken_misuse.yml": {
+    "title": "AWS STS GetSessionToken Misuse",
+    "id": "b45ab1d2-712f-4f01-a751-df3826969807",
+    "status": "Identifies the suspicious use of GetSessionToken. Tokens could be created and used by attackers to move laterally and escalate privileges.",
+    "description": "Identifies the suspicious use of GetSessionToken. Tokens could be created and used by attackers to move laterally and escalate privileges.",
+    "references": [
+      "https://github.com/elastic/detection-rules/pull/1213",
+      "https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/07/24",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.lateral_movement",
+      "attack.privilege_escalation",
+      "attack.t1548",
+      "attack.t1550",
+      "attack.t1550.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection": {
+        "eventSource": "sts.amazonaws.com",
+        "eventName": "GetSessionToken",
+        "userIdentity.type": "IAMUser"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "GetSessionToken may be done by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. GetSessionToken from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_sts_getsessiontoken_misuse.yml"
+  },
+  "aws_susp_saml_activity.yml": {
+    "title": "AWS Suspicious SAML Activity",
+    "id": "f43f5d2f-3f2a-4cc8-b1af-81fde7dbaf0e",
+    "status": "Identifies when suspicious SAML activity has occurred in AWS. An adversary could gain backdoor access via SAML.",
+    "description": "Identifies when suspicious SAML activity has occurred in AWS. An adversary could gain backdoor access via SAML.",
+    "references": [
+      "https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateSAMLProvider.html",
+      "https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/09/22",
+    "modified": "2022/12/18",
+    "tags": [
+      "attack.initial_access",
+      "attack.t1078",
+      "attack.lateral_movement",
+      "attack.t1548",
+      "attack.privilege_escalation",
+      "attack.t1550",
+      "attack.t1550.001"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_sts": {
+        "eventSource": "sts.amazonaws.com",
+        "eventName": "AssumeRoleWithSAML"
+      },
+      "selection_iam": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": "UpdateSAMLProvider"
+      },
+      "condition": "1 of selection_*"
+    },
+    "falsepositives": [
+      "Automated processes that uses Terraform may lead to false positives.",
+      "SAML Provider could be updated by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "SAML Provider being updated from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_susp_saml_activity.yml"
+  },
+  "aws_update_login_profile.yml": {
+    "title": "AWS User Login Profile Was Modified",
+    "id": "055fb148-60f8-462d-ad16-26926ce050f1",
+    "status": "An attacker with the iam:UpdateLoginProfile permission on other users can change the password used to login to the AWS console on any user that already has a login profile setup.\nWith this alert, it is used to detect anyone is changing password on behalf of other users.\n",
+    "description": "An attacker with the iam:UpdateLoginProfile permission on other users can change the password used to login to the AWS console on any user that already has a login profile setup.\nWith this alert, it is used to detect anyone is changing password on behalf of other users.\n",
+    "references": [
+      "https://github.com/RhinoSecurityLabs/AWS-IAM-Privilege-Escalation"
+    ],
+    "author": "toffeebr33k",
+    "date": "2021/08/09",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.persistence",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "aws",
+      "service": "cloudtrail"
+    },
+    "detection": {
+      "selection_source": {
+        "eventSource": "iam.amazonaws.com",
+        "eventName": "UpdateLoginProfile"
+      },
+      "filter": {
+        "userIdentity.arn|contains": "requestParameters.userName"
+      },
+      "condition": "selection_source and not filter"
+    },
+    "falsepositives": [
+      "Legit User Account Administration"
+    ],
+    "level": "high",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/aws/cloudtrail/aws_update_login_profile.yml"
+  },
+  "gcp_bucket_enumeration.yml": {
+    "title": "Google Cloud Storage Buckets Enumeration",
+    "id": "e2feb918-4e77-4608-9697-990a1aaf74c3",
+    "status": "Detects when storage bucket is enumerated in Google Cloud.",
+    "description": "Detects when storage bucket is enumerated in Google Cloud.",
+    "references": [
+      "https://cloud.google.com/storage/docs/json_api/v1/buckets"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/14",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.discovery"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "storage.buckets.list",
+          "storage.buckets.listChannels"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Storage Buckets being enumerated may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Storage Buckets enumerated from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "low",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_bucket_enumeration.yml"
+  },
+  "gcp_bucket_modified_or_deleted.yml": {
+    "title": "Google Cloud Storage Buckets Modified or Deleted",
+    "id": "4d9f2ee2-c903-48ab-b9c1-8c0f474913d0",
+    "status": "Detects when storage bucket is modified or deleted in Google Cloud.",
+    "description": "Detects when storage bucket is modified or deleted in Google Cloud.",
+    "references": [
+      "https://cloud.google.com/storage/docs/json_api/v1/buckets"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/14",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "storage.buckets.delete",
+          "storage.buckets.insert",
+          "storage.buckets.update",
+          "storage.buckets.patch"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Storage Buckets being modified or deleted may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Storage Buckets modified or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_bucket_modified_or_deleted.yml"
+  },
+  "gcp_dlp_re_identifies_sensitive_information.yml": {
+    "title": "Google Cloud Re-identifies Sensitive Information",
+    "id": "234f9f48-904b-4736-a34c-55d23919e4b7",
+    "status": "Identifies when sensitive information is re-identified in google Cloud.",
+    "description": "Identifies when sensitive information is re-identified in google Cloud.",
+    "references": [
+      "https://cloud.google.com/dlp/docs/reference/rest/v2/projects.content/reidentify"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/15",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact",
+      "attack.t1565"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": "projects.content.reidentify"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_dlp_re_identifies_sensitive_information.yml"
+  },
+  "gcp_dns_zone_modified_or_deleted.yml": {
+    "title": "Google Cloud DNS Zone Modified or Deleted",
+    "id": "28268a8f-191f-4c17-85b2-f5aa4fa829c3",
+    "status": "Identifies when a DNS Zone is modified or deleted in Google Cloud.",
+    "description": "Identifies when a DNS Zone is modified or deleted in Google Cloud.",
+    "references": [
+      "https://cloud.google.com/dns/docs/reference/v1/managedZones"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/15",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "Dns.ManagedZones.Delete",
+          "Dns.ManagedZones.Update",
+          "Dns.ManagedZones.Patch"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_dns_zone_modified_or_deleted.yml"
+  },
+  "gcp_firewall_rule_modified_or_deleted.yml": {
+    "title": "Google Cloud Firewall Modified or Deleted",
+    "id": "fe513c69-734c-4d4a-8548-ac5f609be82b",
+    "status": "Detects  when a firewall rule is modified or deleted in Google Cloud Platform (GCP).",
+    "description": "Detects  when a firewall rule is modified or deleted in Google Cloud Platform (GCP).",
+    "references": [
+      "https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging",
+      "https://developers.google.com/resources/api-libraries/documentation/compute/v1/java/latest/com/google/api/services/compute/Compute.Firewalls.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/13",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.defense_evasion",
+      "attack.t1562"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "v*.Compute.Firewalls.Delete",
+          "v*.Compute.Firewalls.Patch",
+          "v*.Compute.Firewalls.Update",
+          "v*.Compute.Firewalls.Insert"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Firewall rules being modified or deleted may be performed by a system administrator. Verify that the firewall configuration change was expected.",
+      "Exceptions can be added to this rule to filter expected behavior."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_firewall_rule_modified_or_deleted.yml"
+  },
+  "gcp_full_network_traffic_packet_capture.yml": {
+    "title": "Google Full Network Traffic Packet Capture",
+    "id": "980a7598-1e7f-4962-9372-2d754c930d0e",
+    "status": "Identifies potential full network packet capture in gcp. This feature can potentially be abused to read sensitive data from unencrypted internal traffic.",
+    "description": "Identifies potential full network packet capture in gcp. This feature can potentially be abused to read sensitive data from unencrypted internal traffic.",
+    "references": [
+      "https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging",
+      "https://developers.google.com/resources/api-libraries/documentation/compute/v1/java/latest/com/google/api/services/compute/Compute.PacketMirrorings.html"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/13",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.collection",
+      "attack.t1074"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "v*.Compute.PacketMirrorings.Get",
+          "v*.Compute.PacketMirrorings.Delete",
+          "v*.Compute.PacketMirrorings.Insert",
+          "v*.Compute.PacketMirrorings.Patch",
+          "v*.Compute.PacketMirrorings.List",
+          "v*.Compute.PacketMirrorings.aggregatedList"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Full Network Packet Capture may be done by a system or network administrator.",
+      "If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_full_network_traffic_packet_capture.yml"
+  },
+  "gcp_kubernetes_admission_controller.yml": {
+    "title": "Google Cloud Kubernetes Admission Controller",
+    "id": "6ad91e31-53df-4826-bd27-0166171c8040",
+    "status": "Identifies when an admission controller is executed in GCP Kubernetes.\nA Kubernetes Admission controller intercepts, and possibly modifies, requests to the Kubernetes API server.\nThe behavior of this admission controller is determined by an admission webhook (MutatingAdmissionWebhook or ValidatingAdmissionWebhook) that the user deploys in the cluster.\nAn adversary can use such webhooks as the MutatingAdmissionWebhook for obtaining persistence in the cluster.\nFor example, attackers can intercept and modify the pod creation operations in the cluster and add their malicious container to every created pod. An adversary can use the webhook ValidatingAdmissionWebhook, which could be used to obtain access credentials.\nAn adversary could use the webhook to intercept the requests to the API server, record secrets, and other sensitive information.\n",
+    "description": "Identifies when an admission controller is executed in GCP Kubernetes.\nA Kubernetes Admission controller intercepts, and possibly modifies, requests to the Kubernetes API server.\nThe behavior of this admission controller is determined by an admission webhook (MutatingAdmissionWebhook or ValidatingAdmissionWebhook) that the user deploys in the cluster.\nAn adversary can use such webhooks as the MutatingAdmissionWebhook for obtaining persistence in the cluster.\nFor example, attackers can intercept and modify the pod creation operations in the cluster and add their malicious container to every created pod. An adversary can use the webhook ValidatingAdmissionWebhook, which could be used to obtain access credentials.\nAn adversary could use the webhook to intercept the requests to the API server, record secrets, and other sensitive information.\n",
+    "references": [
+      "https://cloud.google.com/kubernetes-engine/docs"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/11/25",
+    "modified": "2022/12/18",
+    "tags": [
+      "attack.persistence",
+      "attack.t1078",
+      "attack.credential_access",
+      "attack.t1552",
+      "attack.t1552.007"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name|startswith": "admissionregistration.k8s.io.v",
+        "gcp.audit.method_name|contains": [
+          ".mutatingwebhookconfigurations.",
+          ".validatingwebhookconfigurations."
+        ],
+        "gcp.audit.method_name|endswith": [
+          "create",
+          "patch",
+          "replace"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Google Cloud Kubernetes Admission Controller may be done by a system administrator.",
+      "If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_kubernetes_admission_controller.yml"
+  },
+  "gcp_kubernetes_cronjob.yml": {
+    "title": "Google Cloud Kubernetes CronJob",
+    "id": "cd3a808c-c7b7-4c50-a2f3-f4cfcd436435",
+    "status": "Identifies when a Google Cloud Kubernetes CronJob runs in Azure Cloud. Kubernetes Job is a controller that creates one or more pods and ensures that a specified number of them successfully terminate.\nKubernetes Job can be used to run containers that perform finite tasks for batch jobs. Kubernetes CronJob is used to schedule Jobs.\nAn Adversary may use Kubernetes CronJob for scheduling execution of malicious code that would run as a container in the cluster.\n",
+    "description": "Identifies when a Google Cloud Kubernetes CronJob runs in Azure Cloud. Kubernetes Job is a controller that creates one or more pods and ensures that a specified number of them successfully terminate.\nKubernetes Job can be used to run containers that perform finite tasks for batch jobs. Kubernetes CronJob is used to schedule Jobs.\nAn Adversary may use Kubernetes CronJob for scheduling execution of malicious code that would run as a container in the cluster.\n",
+    "references": [
+      "https://cloud.google.com/kubernetes-engine/docs",
+      "https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/",
+      "https://kubernetes.io/docs/concepts/workloads/controllers/job/"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/11/22",
+    "modified": "2022/12/25",
+    "tags": [
+      "attack.persistence",
+      "attack.privilege_escalation",
+      "attack.execution"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "io.k8s.api.batch.v*.Job",
+          "io.k8s.api.batch.v*.CronJob"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Google Cloud Kubernetes CronJob/Job may be done by a system administrator.",
+      "If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_kubernetes_cronjob.yml"
+  },
+  "gcp_kubernetes_rolebinding.yml": {
+    "title": "Google Cloud Kubernetes RoleBinding",
+    "id": "0322d9f2-289a-47c2-b5e1-b63c90901a3e",
+    "status": "Detects the creation or patching of potential malicious RoleBinding. This includes RoleBindings and ClusterRoleBinding.",
+    "description": "Detects the creation or patching of potential malicious RoleBinding. This includes RoleBindings and ClusterRoleBinding.",
+    "references": [
+      "https://github.com/elastic/detection-rules/pull/1267",
+      "https://kubernetes.io/docs/reference/kubernetes-api/authorization-resources/cluster-role-v1/#ClusterRole",
+      "https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control",
+      "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+      "https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/09",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.credential_access"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "io.k8s.authorization.rbac.v*.clusterrolebindings.create",
+          "io.k8s.authorization.rbac.v*.rolebindings.create",
+          "io.k8s.authorization.rbac.v*.clusterrolebindings.patch",
+          "io.k8s.authorization.rbac.v*.rolebindings.patch",
+          "io.k8s.authorization.rbac.v*.clusterrolebindings.update",
+          "io.k8s.authorization.rbac.v*.rolebindings.update",
+          "io.k8s.authorization.rbac.v*.clusterrolebindings.delete",
+          "io.k8s.authorization.rbac.v*.rolebindings.delete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "RoleBindings and ClusterRoleBinding being modified or deleted may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "RoleBindings and ClusterRoleBinding modified or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_kubernetes_rolebinding.yml"
+  },
+  "gcp_kubernetes_secrets_modified_or_deleted.yml": {
+    "title": "Google Cloud Kubernetes Secrets Modified or Deleted",
+    "id": "2f0bae2d-bf20-4465-be86-1311addebaa3",
+    "status": "Identifies when the Secrets are Modified or Deleted.",
+    "description": "Identifies when the Secrets are Modified or Deleted.",
+    "references": [
+      "https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/09",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.credential_access"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "io.k8s.core.v*.secrets.create",
+          "io.k8s.core.v*.secrets.update",
+          "io.k8s.core.v*.secrets.patch",
+          "io.k8s.core.v*.secrets.delete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Secrets being modified or deleted may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Secrets modified or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_kubernetes_secrets_modified_or_deleted.yml"
+  },
+  "gcp_service_account_disabled_or_deleted.yml": {
+    "title": "Google Cloud Service Account Disabled or Deleted",
+    "id": "13f81a90-a69c-4fab-8f07-b5bb55416a9f",
+    "status": "Identifies when a service account is disabled or deleted in Google Cloud.",
+    "description": "Identifies when a service account is disabled or deleted in Google Cloud.",
+    "references": [
+      "https://cloud.google.com/iam/docs/reference/rest/v1/projects.serviceAccounts"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/14",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact",
+      "attack.t1531"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name|endswith": [
+          ".serviceAccounts.disable",
+          ".serviceAccounts.delete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Service Account being disabled or deleted may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Service Account disabled or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_service_account_disabled_or_deleted.yml"
+  },
+  "gcp_service_account_modified.yml": {
+    "title": "Google Cloud Service Account Modified",
+    "id": "6b67c12e-5e40-47c6-b3b0-1e6b571184cc",
+    "status": "Identifies when a service account is modified in Google Cloud.",
+    "description": "Identifies when a service account is modified in Google Cloud.",
+    "references": [
+      "https://cloud.google.com/iam/docs/reference/rest/v1/projects.serviceAccounts"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/14",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name|endswith": [
+          ".serviceAccounts.patch",
+          ".serviceAccounts.create",
+          ".serviceAccounts.update",
+          ".serviceAccounts.enable",
+          ".serviceAccounts.undelete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Service Account being modified may be performed by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "Service Account modified from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_service_account_modified.yml"
+  },
+  "gcp_sql_database_modified_or_deleted.yml": {
+    "title": "Google Cloud SQL Database Modified or Deleted",
+    "id": "f346bbd5-2c4e-4789-a221-72de7685090d",
+    "status": "Detect when a Cloud SQL DB has been modified or deleted.",
+    "description": "Detect when a Cloud SQL DB has been modified or deleted.",
+    "references": [
+      "https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/users/update"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/10/15",
+    "modified": "2022/12/25",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "cloudsql.instances.create",
+          "cloudsql.instances.delete",
+          "cloudsql.users.update",
+          "cloudsql.users.delete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "SQL Database being modified or deleted may be performed by a system administrator.",
+      "Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "SQL Database modified or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_sql_database_modified_or_deleted.yml"
+  },
+  "gcp_vpn_tunnel_modified_or_deleted.yml": {
+    "title": "Google Cloud VPN Tunnel Modified or Deleted",
+    "id": "99980a85-3a61-43d3-ac0f-b68d6b4797b1",
+    "status": "Identifies when a VPN Tunnel Modified or Deleted in Google Cloud.",
+    "description": "Identifies when a VPN Tunnel Modified or Deleted in Google Cloud.",
+    "references": [
+      "https://any-api.com/googleapis_com/compute/docs/vpnTunnels"
+    ],
+    "author": "Austin Songer @austinsonger",
+    "date": "2021/08/16",
+    "modified": "2022/10/09",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "gcp.audit"
+    },
+    "detection": {
+      "selection": {
+        "gcp.audit.method_name": [
+          "compute.vpnTunnels.insert",
+          "compute.vpnTunnels.delete"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "VPN Tunnel being modified or deleted may be performed by a system administrator.",
+      "Verify whether the user identity, user agent, and/or hostname should be making changes in your environment.",
+      "VPN Tunnel modified or deleted from unfamiliar users should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/audit/gcp_vpn_tunnel_modified_or_deleted.yml"
+  },
+  "gcp_gworkspace_application_removed.yml": {
+    "title": "Google Workspace Application Removed",
+    "id": "ee2803f0-71c8-4831-b48b-a1fc57601ee4",
+    "status": "Detects when an an application is removed from Google Workspace.",
+    "description": "Detects when an an application is removed from Google Workspace.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-domain-settings?hl=en#REMOVE_APPLICATION",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-domain-settings?hl=en#REMOVE_APPLICATION_FROM_WHITELIST"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/26",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection": {
+        "eventService": "admin.googleapis.com",
+        "eventName": [
+          "REMOVE_APPLICATION",
+          "REMOVE_APPLICATION_FROM_WHITELIST"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Application being removed may be performed by a System Administrator."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_application_removed.yml"
+  },
+  "gcp_gworkspace_granted_domain_api_access.yml": {
+    "title": "Google Workspace Granted Domain API Access",
+    "id": "04e2a23a-9b29-4a5c-be3a-3542e3f982ba",
+    "status": "Detects when an API access service account is granted domain authority.",
+    "description": "Detects when an API access service account is granted domain authority.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-domain-settings#AUTHORIZE_API_CLIENT_ACCESS"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/23",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.persistence",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection": {
+        "eventService": "admin.googleapis.com",
+        "eventName": "AUTHORIZE_API_CLIENT_ACCESS"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_granted_domain_api_access.yml"
+  },
+  "gcp_gworkspace_mfa_disabled.yml": {
+    "title": "Google Workspace MFA Disabled",
+    "id": "780601d1-6376-4f2a-884e-b8d45599f78c",
+    "status": "Detects when multi-factor authentication (MFA) is disabled.",
+    "description": "Detects when multi-factor authentication (MFA) is disabled.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-security-settings#ENFORCE_STRONG_AUTHENTICATION",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-security-settings?hl=en#ALLOW_STRONG_AUTHENTICATION"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/26",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection_base": {
+        "eventService": "admin.googleapis.com",
+        "eventName": [
+          "ENFORCE_STRONG_AUTHENTICATION",
+          "ALLOW_STRONG_AUTHENTICATION"
+        ]
+      },
+      "selection_eventValue": {
+        "new_value": "false"
+      },
+      "condition": "all of selection*"
+    },
+    "falsepositives": [
+      "MFA may be disabled and performed by a system administrator."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_mfa_disabled.yml"
+  },
+  "gcp_gworkspace_role_modified_or_deleted.yml": {
+    "title": "Google Workspace Role Modified or Deleted",
+    "id": "6aef64e3-60c6-4782-8db3-8448759c714e",
+    "status": "Detects when an a role is modified or deleted in Google Workspace.",
+    "description": "Detects when an a role is modified or deleted in Google Workspace.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-delegated-admin-settings"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/24",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection": {
+        "eventService": "admin.googleapis.com",
+        "eventName": [
+          "DELETE_ROLE",
+          "RENAME_ROLE",
+          "UPDATE_ROLE"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_role_modified_or_deleted.yml"
+  },
+  "gcp_gworkspace_role_privilege_deleted.yml": {
+    "title": "Google Workspace Role Privilege Deleted",
+    "id": "bf638ef7-4d2d-44bb-a1dc-a238252e6267",
+    "status": "Detects when an a role privilege is deleted in Google Workspace.",
+    "description": "Detects when an a role privilege is deleted in Google Workspace.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-delegated-admin-settings"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/24",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.impact"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection": {
+        "eventService": "admin.googleapis.com",
+        "eventName": "REMOVE_PRIVILEGE"
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Unknown"
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_role_privilege_deleted.yml"
+  },
+  "gcp_gworkspace_user_granted_admin_privileges.yml": {
+    "title": "Google Workspace User Granted Admin Privileges",
+    "id": "2d1b83e4-17c6-4896-a37b-29140b40a788",
+    "status": "Detects when an Google Workspace user is granted admin privileges.",
+    "description": "Detects when an Google Workspace user is granted admin privileges.",
+    "references": [
+      "https://cloud.google.com/logging/docs/audit/gsuite-audit-logging#3",
+      "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-user-settings#GRANT_ADMIN_PRIVILEGE"
+    ],
+    "author": "Austin Songer",
+    "date": "2021/08/23",
+    "modified": "2023/10/11",
+    "tags": [
+      "attack.persistence",
+      "attack.t1098"
+    ],
+    "logsource": {
+      "product": "gcp",
+      "service": "google_workspace.admin"
+    },
+    "detection": {
+      "selection": {
+        "eventService": "admin.googleapis.com",
+        "eventName": [
+          "GRANT_DELEGATED_ADMIN_PRIVILEGES",
+          "GRANT_ADMIN_PRIVILEGE"
+        ]
+      },
+      "condition": "selection"
+    },
+    "falsepositives": [
+      "Google Workspace admin role privileges, may be modified by system administrators."
+    ],
+    "level": "medium",
+    "url": "https://github.com/SigmaHQ/sigma/tree/master/rules/cloud/gcp/gworkspace/gcp_gworkspace_user_granted_admin_privileges.yml"
+  }
+}
