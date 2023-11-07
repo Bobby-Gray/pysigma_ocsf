@@ -1,7 +1,3 @@
-# sigmocsf
-
-# (Draft)
-
 # Overview:
 
 This project contains a draft PySigma processing pipeline (sigma_ocsf.py) to convert sigma rules into the [Open Cybersecurity Schema Framework (OCSF)](https://github.com/ocsf/) format. It was based on [@mbabinski's](https://github.com/mbabinski) [insightidr backend](https://github.com/SigmaHQ/pySigma-backend-insightidr/tree/main/sigma/pipelines/insight_idr) for which Micah wrote an excellent article detailing his process on [Medium](https://micahbabinski.medium.com/creating-a-sigma-backend-for-fun-and-no-profit-ed16d20da142). I highly recommend giving it a read if you are interested in working on something similar.  
