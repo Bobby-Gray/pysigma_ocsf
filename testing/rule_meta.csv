@@ -1,0 +1,335 @@
+cmdline,description,level,process,tags,title
+"*id -Gn *","Detects attempts to exploit an apache spark server via CVE-2014-6287 from a commandline perspective",high,"*","{'TA0001': 'attack.t1190'}","Apache Spark Shell Command Injection - ProcessCreation"
+"*id -Gn `*","Detects attempts to exploit an apache spark server via CVE-2014-6287 from a commandline perspective",high,"*","{'TA0001': 'attack.t1190'}","Apache Spark Shell Command Injection - ProcessCreation"
+"*APT::Update::Pre-Invoke::=*","Detects usage of ""apt"" and ""apt-get"" as a GTFOBin to execute and proxy command and binary execution",medium,"*/apt","{'TA0007': 'attack.t1083'}","Apt GTFOBin Abuse - Linux"
+"*APT::Update::Pre-Invoke::=*","Detects usage of ""apt"" and ""apt-get"" as a GTFOBin to execute and proxy command and binary execution",medium,"*/apt-get","{'TA0007': 'attack.t1083'}","Apt GTFOBin Abuse - Linux"
+"*/bin/sh*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*bash*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*csh*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*curl*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*dash*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*fish*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*ksh*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*python*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*wget*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"*zsh*","Detects spawning of suspicious child processes by Atlassian Confluence server which may indicate successful exploitation of CVE-2022-26134",high,"*","{'TA0001': 'attack.t1059', 'TA0002': 'attack.t1059'}","Atlassian Confluence CVE-2022-26134"
+"-fdat","Detects attempts to record audio with arecord utility",low,"*","{'TA0009': 'attack.t1123'}","Audio Capture"
+"-vv","Detects attempts to record audio with arecord utility",low,"*","{'TA0009': 'attack.t1123'}","Audio Capture"
+arecord,"Detects attempts to record audio with arecord utility",low,"*","{'TA0009': 'attack.t1123'}","Audio Capture"
+"*","Detect changes in auditd configuration files",high,"/etc/audisp/*","{'TA0005': 'attack.t1562.006'}","Auditing Configuration Changes on Linux Host"
+"*","Detect changes in auditd configuration files",high,"/etc/audit/*","{'TA0005': 'attack.t1562.006'}","Auditing Configuration Changes on Linux Host"
+"*","Detect changes in auditd configuration files",high,"/etc/libaudit.conf","{'TA0005': 'attack.t1562.006'}","Auditing Configuration Changes on Linux Host"
+"*","detects BPFDoor .lock and .pid files access in temporary file storage facility",high,"/var/run/haldrund.pid","{'TA0002': 'attack.t1059'}","BPFDoor Abnormal Process ID or Lock File Accessed"
+"*","detects BPFDoor .lock and .pid files access in temporary file storage facility",high,"/var/run/kdevrund.pid","{'TA0002': 'attack.t1059'}","BPFDoor Abnormal Process ID or Lock File Accessed"
+"*","detects BPFDoor .lock and .pid files access in temporary file storage facility",high,"/var/run/xinetd.lock","{'TA0002': 'attack.t1059'}","BPFDoor Abnormal Process ID or Lock File Accessed"
+"*--unsafe*","Detects the usage of the unsafe bpftrace option",medium,"*bpftrace","{'TA0002': 'attack.t1059.004'}","BPFtrace Unsafe Option Usage"
+"* -r *","Detects usage of ""getcap"" binary. This is often used during recon activity to determine potential binaries that can be abused as GTFOBins or other.",low,"*/getcap","{'TA0007': 'attack.t1083'}","Capabilities Discovery - Linux"
+"* /r *","Detects usage of ""getcap"" binary. This is often used during recon activity to determine potential binaries that can be abused as GTFOBins or other.",low,"*/getcap","{'TA0007': 'attack.t1083'}","Capabilities Discovery - Linux"
+"* /etc/sudoers*","Detects the execution of a cat /etc/sudoers to list all users that have sudo rights",medium,"*/cat","{'TA0043': 'attack.t1592.004'}","Cat Sudoers"
+"* /etc/sudoers*","Detects the execution of a cat /etc/sudoers to list all users that have sudo rights",medium,"*/head","{'TA0043': 'attack.t1592.004'}","Cat Sudoers"
+"* /etc/sudoers*","Detects the execution of a cat /etc/sudoers to list all users that have sudo rights",medium,"*/more","{'TA0043': 'attack.t1592.004'}","Cat Sudoers"
+"* /etc/sudoers*","Detects the execution of a cat /etc/sudoers to list all users that have sudo rights",medium,"*/tail","{'TA0043': 'attack.t1592.004'}","Cat Sudoers"
+"* /etc/sudoers*","Detects the execution of a cat /etc/sudoers to list all users that have sudo rights",medium,"*grep","{'TA0043': 'attack.t1592.004'}","Cat Sudoers"
+"*/.Library/*","Detects chmod targeting files in abnormal directory paths.",medium,"*/chmod","{'TA0005': 'attack.t1222.002'}","Chmod Suspicious Directory"
+"*/etc/*","Detects chmod targeting files in abnormal directory paths.",medium,"*/chmod","{'TA0005': 'attack.t1222.002'}","Chmod Suspicious Directory"
+"*/opt/*","Detects chmod targeting files in abnormal directory paths.",medium,"*/chmod","{'TA0005': 'attack.t1222.002'}","Chmod Suspicious Directory"
+"*/tmp/*","Detects chmod targeting files in abnormal directory paths.",medium,"*/chmod","{'TA0005': 'attack.t1222.002'}","Chmod Suspicious Directory"
+"*/var/log*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/rm","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"*/var/spool/mail*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/rm","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"*/var/log*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/shred","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"*/var/spool/mail*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/shred","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"*/var/log*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/unlink","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"*/var/spool/mail*","Detects attempts to clear logs on the system. Adversaries may clear system logs to hide evidence of an intrusion",medium,"*/unlink","{'TA0005': 'attack.t1070.002'}","Clear Linux Logs"
+"-sel","Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+"-selection","Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+"-t","Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+clip,"Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+clipboard,"Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+"image/*","Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+xclip,"Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection of Image Data with Xclip Tool"
+"*","Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool. Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*xclip*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool"
+"-o","Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+"-sel","Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+"-selection","Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+clip,"Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+clipboard,"Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+xclip,"Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool.
+Xclip has to be installed.
+Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+",low,"*","{'TA0009': 'attack.t1115'}","Clipboard Collection with Xclip Tool - Auditd"
+"* > /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"* >/var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*mv /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*rm -f /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*rm -r /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*rm -rf /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*rm /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*unlink -f /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*unlink -r /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*unlink -rf /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*unlink /var/log/syslog*","Detects specific commands commonly used to remove or empty the syslog. Which is often used by attacker as a method to hide their tracks",high,"*","{'TA0005': 'attack.t1070.002'}","Commands to Clear or Remove the Syslog"
+"*http_proxy=*","Detects setting proxy configuration",low,"*","{'TA0005': 'attack.t1090'}","Connection Proxy"
+"*https_proxy=*","Detects setting proxy configuration",low,"*","{'TA0005': 'attack.t1090'}","Connection Proxy"
+"* -l*","Detects usage of crontab to list the tasks of the user",low,"*/crontab","{'TA0007': 'attack.t1007'}","Crontab Enumeration"
+"*","Detects a curl process start on linux, which indicates a file download from a remote location or a simple web request to a remote server",low,"*/curl","{'TA0011': 'attack.t1105'}","Curl Usage on Linux"
+"--post-file=*","Detects attempts to post the file with the usage of wget utility.
+The adversary can bypass the permission restriction with the misconfigured sudo permission for wget utility which could allow them to read files like /etc/shadow.
+",medium,"*","{'TA0010': 'attack.t1048.003'}","Data Exfiltration with Wget"
+wget,"Detects attempts to post the file with the usage of wget utility.
+The adversary can bypass the permission restriction with the misconfigured sudo permission for wget utility which could allow them to read files like /etc/shadow.
+",medium,"*","{'TA0010': 'attack.t1048.003'}","Data Exfiltration with Wget"
+"*-d*","Detects usage of base64 utility to decode arbitrary base64-encoded text",low,"*/base64","{'TA0005': 'attack.t1027'}","Decode Base64 Encoded Text"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/cat","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/dir","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/find","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/ls","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/stat","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*/test","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*.dockerenv","Detects listing or file reading of "".dockerenv"" which can be a sing of potential container discovery",low,"*grep","{'TA0007': 'attack.t1082'}","Docker Container Discovery Via Dockerenv Listing"
+"*","Detects user account creation on ESXi system via esxcli",medium,"*/esxcli","{'TA0003': 'attack.t1136'}","ESXi Account Creation Via ESXCLI"
+"* set*","Detects changes to the ESXi syslog configuration via ""esxcli",medium,"*/esxcli","{'TA0005': 'attack.t1562.003'}","ESXi Syslog Configuration Change Via ESXCLI"
+"* list","Detects execution of the ""esxcli"" command with the ""vm"" flag in order to retrieve information about the installed VMs.",medium,"*/esxcli","{'TA0007': 'attack.t1007'}","ESXi VM List Discovery Via ESXCLI"
+"*vm process*","Detects execution of the ""esxcli"" command with the ""vm"" flag in order to retrieve information about the installed VMs.",medium,"*/esxcli","{'TA0007': 'attack.t1007'}","ESXi VM List Discovery Via ESXCLI"
+"*","Detects file deletion using ""rm"", ""shred"" or ""unlink"" commands which are used often by adversaries to delete files left behind by the actions of their intrusion activity",informational,"*/rm","{'TA0005': 'attack.t1070.004'}","File Deletion"
+"*","Detects file deletion using ""rm"", ""shred"" or ""unlink"" commands which are used often by adversaries to delete files left behind by the actions of their intrusion activity",informational,"*/shred","{'TA0005': 'attack.t1070.004'}","File Deletion"
+"*","Detects file deletion using ""rm"", ""shred"" or ""unlink"" commands which are used often by adversaries to delete files left behind by the actions of their intrusion activity",informational,"*/unlink","{'TA0005': 'attack.t1070.004'}","File Deletion"
+"*chmod*","Detects file and folder permission changes.",low,"*","{'TA0005': 'attack.t1222.002'}","File or Folder Permissions Change"
+"*chown*","Detects file and folder permission changes.",low,"*","{'TA0005': 'attack.t1222.002'}","File or Folder Permissions Change"
+"*","Detects execution of the ""groupdel"" binary. Which is used to delete a group. This is sometimes abused by threat actors in order to cover their tracks",medium,"*/groupdel","{'TA0040': 'attack.t1531'}","Group Has Been Deleted Via Groupdel"
+"*","Detects events in which a history file gets deleted, e.g. the ~/bash_history to remove traces of malicious activity",high,"*/rm","{'TA0040': 'attack.t1565.001'}","History File Deletion"
+"*","Detects events in which a history file gets deleted, e.g. the ~/bash_history to remove traces of malicious activity",high,"*/shred","{'TA0040': 'attack.t1565.001'}","History File Deletion"
+"*","Detects events in which a history file gets deleted, e.g. the ~/bash_history to remove traces of malicious activity",high,"*/unlink","{'TA0040': 'attack.t1565.001'}","History File Deletion"
+"*","Detects installation of new certificate on the system which attackers may use to avoid warnings when connecting to controlled web servers or C2s",low,"*/update-ca-certificates","{'TA0005': 'attack.t1553.004'}","Install Root Certificate"
+"*","Detects installation of new certificate on the system which attackers may use to avoid warnings when connecting to controlled web servers or C2s",low,"*/update-ca-trust","{'TA0005': 'attack.t1553.004'}","Install Root Certificate"
+"*IyEvYmluL2Jhc2*","Detects the presence of a base64 version of the shebang in the commandline, which could indicate a malicious payload about to be decoded",medium,"*","{'TA0005': 'attack.t1140'}","Linux Base64 Encoded Shebang In CLI"
+"*IyEvYmluL2Rhc2*","Detects the presence of a base64 version of the shebang in the commandline, which could indicate a malicious payload about to be decoded",medium,"*","{'TA0005': 'attack.t1140'}","Linux Base64 Encoded Shebang In CLI"
+"*IyEvYmluL2Zpc2*","Detects the presence of a base64 version of the shebang in the commandline, which could indicate a malicious payload about to be decoded",medium,"*","{'TA0005': 'attack.t1140'}","Linux Base64 Encoded Shebang In CLI"
+"*IyEvYmluL3No*","Detects the presence of a base64 version of the shebang in the commandline, which could indicate a malicious payload about to be decoded",medium,"*","{'TA0005': 'attack.t1140'}","Linux Base64 Encoded Shebang In CLI"
+"*IyEvYmluL3pza*","Detects the presence of a base64 version of the shebang in the commandline, which could indicate a malicious payload about to be decoded",medium,"*","{'TA0005': 'attack.t1140'}","Linux Base64 Encoded Shebang In CLI"
+"-r","Detects attempts to discover the files with setuid/setgid capability on them. That would allow adversary to escalate their privileges.",low,"*","{'TA0009': 'attack.t1548', 'TA0004': 'attack.t1548'}","Linux Capabilities Discovery"
+"/","Detects attempts to discover the files with setuid/setgid capability on them. That would allow adversary to escalate their privileges.",low,"*","{'TA0009': 'attack.t1548', 'TA0004': 'attack.t1548'}","Linux Capabilities Discovery"
+getcap,"Detects attempts to discover the files with setuid/setgid capability on them. That would allow adversary to escalate their privileges.",low,"*","{'TA0009': 'attack.t1548', 'TA0004': 'attack.t1548'}","Linux Capabilities Discovery"
+"* --algo=rx/0 *","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"* --cpu-priority=*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"* --nicehash*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"* -o pool.*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*--donate-level=0*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*0tZG9uYXRlLWxldmVsP*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*LS1kb25hdGUtbGV2ZWw9*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*N0cmF0dW0rdGNwOi8v*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*N0cmF0dW0rdWRwOi8v*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*c3RyYXR1bSt0Y3A6Ly*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*c3RyYXR1bSt1ZHA6Ly*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*sh -c /sbin/modprobe msr allow_writes=on*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*stratum+tcp://*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*stratum+udp://*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*tLWRvbmF0ZS1sZXZlbD*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*zdHJhdHVtK3RjcDovL*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*zdHJhdHVtK3VkcDovL*","Detects command line parameters or strings often used by crypto miners",high,"*","{'TA0040': 'attack.t1496'}","Linux Crypto Mining Indicators"
+"*","Detects the doas tool execution in linux host platform. This utility tool allow standard users to perform tasks as root, the same way sudo does.",low,"*/doas","{'TA0004': 'attack.t1548'}","Linux Doas Tool Execution"
+"* -name .htpasswd*","Detects events with patterns found in commands used for reconnaissance on linux systems",high,"*","{'TA0043': 'attack.t1552.001', 'TA0006': 'attack.t1552.001'}","Linux Recon Indicators"
+"* -perm -4000 *","Detects events with patterns found in commands used for reconnaissance on linux systems",high,"*","{'TA0043': 'attack.t1552.001', 'TA0006': 'attack.t1552.001'}","Linux Recon Indicators"
+"bash -c *","Detects suspicious process command line that starts with a shell that executes something and finally gets piped into another shell",medium,"*","{'TA0005': 'attack.t1140'}","Linux Shell Pipe to Shell"
+"sh -c *","Detects suspicious process command line that starts with a shell that executes something and finally gets piped into another shell",medium,"*","{'TA0005': 'attack.t1140'}","Linux Shell Pipe to Shell"
+"*","Detect changes of syslog daemons configuration files",high,"/etc/rsyslog.conf","{'TA0005': 'attack.t1562.006'}","Logging Configuration Changes on Linux Host"
+"*","Detect changes of syslog daemons configuration files",high,"/etc/syslog-ng/syslog-ng.conf","{'TA0005': 'attack.t1562.006'}","Logging Configuration Changes on Linux Host"
+"*","Detect changes of syslog daemons configuration files",high,"/etc/syslog.conf","{'TA0005': 'attack.t1562.006'}","Logging Configuration Changes on Linux Host"
+"*/crond","Masquerading occurs when the name or location of an executable, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation.
+Several different variations of this technique have been observed.
+",medium,"*","{'TA0005': 'attack.t1036.003'}","Masquerading as Linux Crond Process"
+"/bin/sh","Masquerading occurs when the name or location of an executable, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation.
+Several different variations of this technique have been observed.
+",medium,"*","{'TA0005': 'attack.t1036.003'}","Masquerading as Linux Crond Process"
+cp,"Masquerading occurs when the name or location of an executable, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation.
+Several different variations of this technique have been observed.
+",medium,"*","{'TA0005': 'attack.t1036.003'}","Masquerading as Linux Crond Process"
+"*","Identifies modification of ld.so.preload for shared object injection. This technique is used by attackers to load arbitrary code into processes.",high,"/etc/ld.so.preload","{'TA0005': 'attack.t1574.006'}","Modification of ld.so.preload"
+"*","Detects execution of the ""mount"" command with ""hidepid"" parameter to make invisible processes to other users from the system",medium,"*/mount","{'TA0006': 'attack.t1564'}","Mount Execution With Hidepid Parameter"
+"*","Detects usage of nohup which could be leveraged by an attacker to keep a process running or break out from restricted environments",medium,"*/nohup","{'TA0002': 'attack.t1059.004'}","Nohup Execution"
+"*/etc/opt/microsoft/scx/conf/tmpdir/scx*","Rule to detect the use of the SCX RunAsProvider ExecuteScript to execute any UNIX/Linux script using the /bin/sh shell.
+Script being executed gets created as a temp file in /tmp folder with a scx* prefix.
+Then it is invoked from the following directory /etc/opt/microsoft/scx/conf/tmpdir/.
+The file in that directory has the same prefix scx*. SCXcore, started as the Microsoft Operations Manager UNIX/Linux Agent, is now used in a host of products including
+Microsoft Operations Manager, Microsoft Azure, and Microsoft Operations Management Suite.
+",high,"*","{'TA0004': 'attack.t1203', 'TA0001': 'attack.t1203', 'TA0002': 'attack.t1203'}","OMIGOD SCX RunAsProvider ExecuteScript"
+"*/bin/sh*","Rule to detect the use of the SCX RunAsProvider Invoke_ExecuteShellCommand to execute any UNIX/Linux command using the /bin/sh shell.
+SCXcore, started as the Microsoft Operations Manager UNIX/Linux Agent, is now used in a host of products including
+Microsoft Operations Manager, Microsoft Azure, and Microsoft Operations Management Suite.
+",high,"*","{'TA0004': 'attack.t1203', 'TA0001': 'attack.t1203', 'TA0002': 'attack.t1203'}","OMIGOD SCX RunAsProvider ExecuteShellCommand"
+"*dd*","Detects overwriting (effectively wiping/deleting) of a file.",low,"*","{'TA0040': 'attack.t1485'}","Overwriting the File with Dev Zero or Null"
+"*if=/dev/null*","Detects overwriting (effectively wiping/deleting) of a file.",low,"*","{'TA0040': 'attack.t1485'}","Overwriting the File with Dev Zero or Null"
+"*if=/dev/zero*","Detects overwriting (effectively wiping/deleting) of a file.",low,"*","{'TA0040': 'attack.t1485'}","Overwriting the File with Dev Zero or Null"
+"* /","Detects listing of the inodes of the ""/"" directory to determin if the we are running inside of a container.",low,"*/ls","{'TA0007': 'attack.t1082'}","Potential Container Discovery Via Inodes Listing"
+"*-perm -2000*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -222*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -4000*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -g=s*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -o w*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -o x*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm -u=s*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*-perm 0777*","Detects usage of ""find"" binary in a suspicious manner to perform discovery",medium,"*/find","{'TA0007': 'attack.t1083'}","Potential Discovery Activity Using Find - Linux"
+"*apached*","Detects the use of grep to discover specific files created by the GobRAT malware",high,"*/grep","{'TA0007': 'attack.t1082'}","Potential GobRAT File Discovery Via Grep"
+"*frpc*","Detects the use of grep to discover specific files created by the GobRAT malware",high,"*/grep","{'TA0007': 'attack.t1082'}","Potential GobRAT File Discovery Via Grep"
+"*sshd.sh*","Detects the use of grep to discover specific files created by the GobRAT malware",high,"*/grep","{'TA0007': 'attack.t1082'}","Potential GobRAT File Discovery Via Grep"
+"*zone.arm*","Detects the use of grep to discover specific files created by the GobRAT malware",high,"*/grep","{'TA0007': 'attack.t1082'}","Potential GobRAT File Discovery Via Grep"
+"*","Detects potential Amazon SSM agent hijack attempts as outlined in the Mitiga research reoport.",medium,"*/amazon-ssm-agent","{'TA0011': 'attack.t1219', 'TA0003': 'attack.t1219'}","Potential Linux Amazon SSM Agent Hijacking"
+"*-display*","Detects usage of ""xterm"" as a potential reverse shell tunnel",medium,"*xterm*","{'TA0002': 'attack.t1059'}","Potential Xterm Reverse Shell"
+"*:1","Detects usage of ""xterm"" as a potential reverse shell tunnel",medium,"*xterm*","{'TA0002': 'attack.t1059'}","Potential Xterm Reverse Shell"
+"*","Detects a potentially suspicious execution of a process located in the '/tmp/' folder",high,"/tmp/*","{'TA0005': 'attack.t1036'}","Potentially Suspicious Execution From Tmp Folder"
+"*","Detects events in which someone prints the contents of history files to the commandline or redirects it to a file for reconnaissance",medium,"*/cat","{'TA0043': 'attack.t1592.004'}","Print History File Contents"
+"*","Detects events in which someone prints the contents of history files to the commandline or redirects it to a file for reconnaissance",medium,"*/head","{'TA0043': 'attack.t1592.004'}","Print History File Contents"
+"*","Detects events in which someone prints the contents of history files to the commandline or redirects it to a file for reconnaissance",medium,"*/more","{'TA0043': 'attack.t1592.004'}","Print History File Contents"
+"*","Detects events in which someone prints the contents of history files to the commandline or redirects it to a file for reconnaissance",medium,"*/tail","{'TA0043': 'attack.t1592.004'}","Print History File Contents"
+"*","Detects process discovery commands. Adversaries may attempt to get information about running processes on a system.
+Information obtained could be used to gain an understanding of common software/applications running on systems within the network
+",informational,"*/ps","{'TA0007': 'attack.t1057'}","Process Discovery"
+"*","Detects process discovery commands. Adversaries may attempt to get information about running processes on a system.
+Information obtained could be used to gain an understanding of common software/applications running on systems within the network
+",informational,"*/top","{'TA0007': 'attack.t1057'}","Process Discovery"
+"* -i *","Detects usage of the 'chattr' utility to remove immutable file attribute.",medium,"*/chattr","{'TA0005': 'attack.t1222.002'}","Remove Immutable File Attribute"
+"*-i*","Detects removing immutable file attribute.",medium,"*","{'TA0005': 'attack.t1222.002'}","Remove Immutable File Attribute - Auditd"
+"*chattr*","Detects removing immutable file attribute.",medium,"*","{'TA0005': 'attack.t1222.002'}","Remove Immutable File Attribute - Auditd"
+"*/tmp/*","Detects abuse of the cron utility to perform task scheduling for initial or recurring execution of malicious code. Detection will focus on crontab jobs uploaded from the tmp folder.",medium,"*crontab","{'TA0002': 'attack.t1053.003', 'TA0003': 'attack.t1053.003', 'TA0004': 'attack.t1053.003'}","Scheduled Cron Task/Job - Linux"
+"*","Detects the use of at/atd which are utilities that are used to schedule tasks.
+They are often abused by adversaries to maintain persistence or to perform task scheduling for initial or recurring execution of malicious code
+",low,"*/at","{'TA0003': 'attack.t1053.002'}","Scheduled Task/Job At"
+"*","Detects the use of at/atd which are utilities that are used to schedule tasks.
+They are often abused by adversaries to maintain persistence or to perform task scheduling for initial or recurring execution of malicious code
+",low,"*/atd","{'TA0003': 'attack.t1053.002'}","Scheduled Task/Job At"
+xwd,"Detects adversary creating screen capture of a full with xwd. Highly recommended using rule on servers, due high usage of screenshot utilities on user workstations",low,"*","{'TA0009': 'attack.t1113'}","Screen Capture with Xwd"
+"*auditbeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*cbagentd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*falcond*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*filebeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*nessusd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*osqueryd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*packetbeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*td-agent*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/egrep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*auditbeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*cbagentd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*falcond*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*filebeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*nessusd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*osqueryd*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*packetbeat*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*td-agent*","Detects usage of system utilities (only grep and egrep for now) to discover security software discovery",low,"*/grep","{'TA0007': 'attack.t1518.001'}","Security Software Discovery - Linux"
+"*.jpg","Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Extract Files with Steghide"
+"*.png","Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Extract Files with Steghide"
+"-sf","Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Extract Files with Steghide"
+extract,"Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Extract Files with Steghide"
+steghide,"Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Extract Files with Steghide"
+"-cf","Detects embeding of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Hide Files with Steghide"
+"-ef","Detects embeding of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Hide Files with Steghide"
+embed,"Detects embeding of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Hide Files with Steghide"
+steghide,"Detects embeding of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.",low,"*","{'TA0005': 'attack.t1027.003'}","Steganography Hide Files with Steghide"
+"* -u#*","Detects users trying to exploit sudo vulnerability reported in CVE-2019-14287",high,"*","{'TA0004': 'attack.t1548.003'}","Sudo Privilege Escalation CVE-2019-14287"
+"* --user-agent *","Detects a suspicious curl process start on linux with set useragent options",medium,"*/curl","{'TA0011': 'attack.t1071.001'}","Suspicious Curl Change User Agents - Linux"
+"* -A *","Detects a suspicious curl process start on linux with set useragent options",medium,"*/curl","{'TA0011': 'attack.t1071.001'}","Suspicious Curl Change User Agents - Linux"
+"*/bin/sh*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*bash*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*csh*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*curl*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*dash*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*fish*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*ksh*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*python*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*wget*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*zsh*","Detects java process spawning suspicious children",high,"*","{'TA0002': 'attack.t1059'}","Suspicious Java Children Processes"
+"*","Detects system information discovery commands",informational,"*/dmidecode","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/hostname","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/lscpu","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/lsmod","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/lspci","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/uname","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects system information discovery commands",informational,"*/uptime","{'TA0007': 'attack.t1082'}","System Information Discovery"
+"*","Detects usage of system utilities to discover system network connections",low,"*/last","{'TA0007': 'attack.t1049'}","System Network Connections Discovery - Linux"
+"*","Detects usage of system utilities to discover system network connections",low,"*/lsof","{'TA0007': 'attack.t1049'}","System Network Connections Discovery - Linux"
+"*","Detects usage of system utilities to discover system network connections",low,"*/netstat","{'TA0007': 'attack.t1049'}","System Network Connections Discovery - Linux"
+"*","Detects usage of system utilities to discover system network connections",low,"*/w","{'TA0007': 'attack.t1049'}","System Network Connections Discovery - Linux"
+"*","Detects usage of system utilities to discover system network connections",low,"*/who","{'TA0007': 'attack.t1049'}","System Network Connections Discovery - Linux"
+users,"Adversaries may use the information from System Owner/User Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions.",low,"*","{'TA0007': 'attack.t1033'}","System Owner or User Discovery"
+w,"Adversaries may use the information from System Owner/User Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions.",low,"*","{'TA0007': 'attack.t1033'}","System Owner or User Discovery"
+who,"Adversaries may use the information from System Owner/User Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions.",low,"*","{'TA0007': 'attack.t1033'}","System Owner or User Discovery"
+"*","Detects system information discovery commands",informational,"/etc/*release","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/etc/*version","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/etc/issue","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/proc/ide/hd0/model","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/proc/scsi/scsi","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/proc/version","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/sys/class/dmi/id/bios_version","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/sys/class/dmi/id/chassis_vendor","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*","Detects system information discovery commands",informational,"/sys/class/dmi/id/product_name","{'TA0007': 'attack.t1082'}","System and Hardware Information Discovery"
+"*daemon-reload*","Detects a reload or a start of a service.",low,"*","{'TA0003': 'attack.t1543.002'}","Systemd Service Reload or Start"
+"*start*","Detects a reload or a start of a service.",low,"*","{'TA0003': 'attack.t1543.002'}","Systemd Service Reload or Start"
+"*systemctl*","Detects a reload or a start of a service.",low,"*","{'TA0003': 'attack.t1543.002'}","Systemd Service Reload or Start"
+"*","Detects usage of command line tools such as ""kill"", ""pkill"" or ""killall"" to terminate or signal a running process.",low,"*/kill","{'TA0005': 'attack.t1562'}","Terminate Linux Process Via Kill"
+"*","Detects usage of command line tools such as ""kill"", ""pkill"" or ""killall"" to terminate or signal a running process.",low,"*/killall","{'TA0005': 'attack.t1562'}","Terminate Linux Process Via Kill"
+"*","Detects usage of command line tools such as ""kill"", ""pkill"" or ""killall"" to terminate or signal a running process.",low,"*/pkill","{'TA0005': 'attack.t1562'}","Terminate Linux Process Via Kill"
+"* -t *","Detects usage of the ""touch"" process in service file.",medium,"*/touch","{'TA0005': 'attack.t1070.006'}","Touch Suspicious Service File"
+"*.service","Detects usage of the ""touch"" process in service file.",medium,"*/touch","{'TA0005': 'attack.t1070.006'}","Touch Suspicious Service File"
+"* filter *","Detects default install commands of the Triple Cross eBPF rootkit based on the ""deployer.sh"" script",high,"*/sudo","{'TA0005': 'attack.t1014'}","Triple Cross eBPF Rootkit Install Commands"
+"* qdisc *","Detects default install commands of the Triple Cross eBPF rootkit based on the ""deployer.sh"" script",high,"*/sudo","{'TA0005': 'attack.t1014'}","Triple Cross eBPF Rootkit Install Commands"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/bash.bashrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/bashrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/csh.cshrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/csh.login","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/profile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/profile.d/*","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/shells","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/zsh/zlogin","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/zsh/zlogout","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/zsh/zprofile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/etc/zsh/zshrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.bash_login","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.bash_logout","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.bash_profile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.bashrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.profile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.zlogin","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.zlogout","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.zprofile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/home/*/.zshrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/root/.bash_profile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/root/.bashrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/root/.profile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/root/.zprofile","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detect unix shell configuration modification. Adversaries may establish persistence through executing malicious commands triggered when a new shell is opened.",medium,"/root/.zshrc","{'TA0003': 'attack.t1546.004'}","Unix Shell Configuration Modification"
+"*","Detects execution of the ""userdel"" binary. Which is used to delete a user account and related files. This is sometimes abused by threat actors in order to cover their tracks",medium,"*/userdel","{'TA0040': 'attack.t1531'}","User Has Been Deleted Via Userdel"
